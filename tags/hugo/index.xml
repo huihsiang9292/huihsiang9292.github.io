@@ -16,7 +16,7 @@ hugo version
 &lt;/code>&lt;/pre>
 &lt;h1 id="建立-github-儲存庫">建立 Github 儲存庫&lt;/h1>
 &lt;h2 id="私有儲存庫">私有儲存庫&lt;/h2>
-&lt;p>用來存放所有原始檔案，只有你看得到。&lt;br>
+&lt;p>用來存放所有原始檔案，只有你看得到&lt;br>
 &lt;code>Repository name&lt;/code> 可以隨意取&lt;br>
 &lt;img src="https://huihsiang9292.github.io/p/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/01.png"
 width="925"
@@ -28,7 +28,7 @@ data-flex-grow="252"
 data-flex-basis="604px"
 >&lt;/p>
 &lt;h2 id="公開儲存庫">公開儲存庫&lt;/h2>
-&lt;p>用來存放public裡的檔案，所有人都看得到。&lt;br>
+&lt;p>用來存放public裡的檔案，所有人都看得到&lt;br>
 &lt;code>Repository name&lt;/code> 要填上&lt;code>YourName.github.io&lt;/code>&lt;br>
 &lt;img src="https://huihsiang9292.github.io/p/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/02.png"
 width="920"
