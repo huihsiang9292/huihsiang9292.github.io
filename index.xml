@@ -50,13 +50,10 @@ class="gallery-image"
 data-flex-grow="759"
 data-flex-basis="1823px"
 >&lt;br>
-將 &lt;code>www&lt;/code> 改為你的私有儲存庫&lt;br>
 因為資料夾已經存在，加上 &lt;code>--force&lt;/code> 強制執行&lt;/p>
-&lt;pre>&lt;code>hugo new site www --force
-&lt;/code>&lt;/pre>
-&lt;p>將 &lt;code>huihsiang9292&lt;/code> 改為你的公開儲存庫&lt;/p>
-&lt;pre>&lt;code>cd www
-hugo mod init github.com/huihsiang9292/huihsiang9292.github.io
+&lt;pre>&lt;code>hugo new site YourBlog --force
+cd www
+hugo mod init github.com/YourName/YourName.github.io
 &lt;/code>&lt;/pre>
 &lt;p>在 &lt;code>config.toml&lt;/code> 中寫入:&lt;/p>
 &lt;pre>&lt;code>[[module.imports]]
@@ -174,14 +171,14 @@ data-flex-basis="162px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - uses: peaceiris/actions-gh-pages@v3
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> with:
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> external_repository: huihsiang9292/huihsiang9292.github.io
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> external_repository: YourName/YourName.github.io
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> publish_branch: main
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> publish_dir: ./public
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h1 id="deploy-key">Deploy Key&lt;/h1>
 &lt;h2 id="生成密鑰">生成密鑰&lt;/h2>
-&lt;pre>&lt;code>ssh-keygen -t rsa -b 4096 -C &amp;quot;$(git config user.email)&amp;quot; -f key -N &amp;quot;&amp;quot;
+&lt;pre>&lt;code>ssh-keygen -t rsa -b 4096 -C &amp;quot;$(git config YourGithubMail)&amp;quot; -f key -N &amp;quot;&amp;quot;
 &lt;/code>&lt;/pre>
 &lt;p>&lt;img src="https://huihsiang9292.github.io/p/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/07.png"
 width="185"
@@ -222,7 +219,7 @@ data-flex-grow="171"
 data-flex-basis="411px"
 >&lt;/p>
 &lt;h1 id="部署到-github-pages">部署到 Github Pages&lt;/h1>
-&lt;pre>&lt;code>git config --global user.name ExampleName
-git config --global user.email ExampleMail@example.com
+&lt;pre>&lt;code>git config --global user.name YourName
+git config --global user.email YourMail@example.com
 &lt;/code>&lt;/pre>
 &lt;p>等一會兒，打開瀏覽器輸入 &lt;code>YourName.github.io&lt;/code> 就可以看到網站啦&lt;/p></description></item><item><title>About</title><link>https://huihsiang9292.github.io/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://huihsiang9292.github.io/about/</guid><description/></item><item><title>Archives</title><link>https://huihsiang9292.github.io/archives/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://huihsiang9292.github.io/archives/</guid><description/></item><item><title>Search</title><link>https://huihsiang9292.github.io/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://huihsiang9292.github.io/search/</guid><description/></item></channel></rss>
