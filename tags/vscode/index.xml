@@ -27,12 +27,17 @@
 &lt;/div>
 &lt;/div>&lt;h1 id="擴充套件">擴充套件&lt;/h1>
 &lt;h2 id="中文化">中文化&lt;/h2>
-&lt;p>Chinese (Traditional) Language Pack for Visual Studio Code&lt;/p>
+&lt;p>&lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-zh-hant" target="_blank" rel="noopener"
+>Chinese (Traditional) Language Pack for Visual Studio Code&lt;/a>&lt;/p>
 &lt;h2 id="連線至-wsl">連線至 WSL&lt;/h2>
-&lt;p>WSL&lt;/p>
+&lt;p>&lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl" target="_blank" rel="noopener"
+>WSL&lt;/a>&lt;/p>
 &lt;h2 id="顯示句尾空白">顯示句尾空白&lt;/h2>
-&lt;p>Trailing Spaces&lt;/p>
+&lt;p>&lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=shardulm94.trailing-spaces" target="_blank" rel="noopener"
+>Trailing Spaces&lt;/a>&lt;/p>
 &lt;h2 id="錯別字檢查-限英文">錯別字檢查 (限英文)&lt;/h2>
-&lt;p>Code Spell Checker&lt;/p>
+&lt;p>&lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker" target="_blank" rel="noopener"
+>Code Spell Checker&lt;/a>&lt;/p>
 &lt;h2 id="markdown-文件格式化">Markdown 文件格式化&lt;/h2>
-&lt;p>markdownlint&lt;/p></description></item></channel></rss>
+&lt;p>&lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint" target="_blank" rel="noopener"
+>markdownlint&lt;/a>&lt;/p></description></item></channel></rss>
