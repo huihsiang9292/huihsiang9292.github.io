@@ -46,9 +46,9 @@
 &lt;/code>&lt;/pre>
 &lt;h1 id="新增環境變數">新增環境變數&lt;/h1>
 &lt;ol>
-&lt;li>複製 &lt;code>mingw-w64&lt;/code> 預設安裝路徑 &lt;code>C:\msys64\mingw64\bin&lt;/code>&lt;/li>
+&lt;li>複製 &lt;code>mingw-w64&lt;/code> 中 &lt;code>bin&lt;/code> 的路徑 ( 預設安裝路徑 : &lt;code>C:\msys64\mingw64\bin&lt;/code> )&lt;/li>
 &lt;li>設定 &amp;gt; 系統 &amp;gt; 系統資訊 &amp;gt; 進階系統設定 &amp;gt; 進階 &amp;gt; 環境變數 &amp;gt; Path&lt;/li>
-&lt;li>將路徑新增至 &lt;code>Path&lt;/code> 中&lt;/li>
+&lt;li>將 &lt;code>C:\msys64\mingw64\bin&lt;/code> 新增至 &lt;code>Path&lt;/code> 中&lt;/li>
 &lt;/ol>
 &lt;h1 id="檢查">檢查&lt;/h1>
 &lt;pre>&lt;code>gcc --version
