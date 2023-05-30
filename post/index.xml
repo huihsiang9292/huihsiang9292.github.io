@@ -222,4 +222,4 @@ data-flex-basis="411px"
 &lt;pre>&lt;code>git config --global user.name YourName
 git config --global user.email YourMail@example.com
 &lt;/code>&lt;/pre>
-&lt;p>等一會兒，打開瀏覽器輸入 &lt;code>YourName.github.io&lt;/code> 就可以看到網站啦&lt;/p></description></item></channel></rss>
+&lt;p>push 上 github，打開瀏覽器輸入 &lt;code>YourName.github.io&lt;/code> 就可以看到網站啦&lt;/p></description></item></channel></rss>
