@@ -35,7 +35,7 @@
 &lt;h2 id="錯別字檢查-限英文">錯別字檢查 (限英文)&lt;/h2>
 &lt;p>Code Spell Checker&lt;/p>
 &lt;h2 id="markdown-文件格式化">Markdown 文件格式化&lt;/h2>
-&lt;p>markdownlint&lt;/p></description></item><item><title>C++ - 環境配置</title><link>https://huihsiang9292.github.io/p/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Wed, 31 May 2023 01:53:02 +0800</pubDate><guid>https://huihsiang9292.github.io/p/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/index.png" alt="Featured image of post C++ - 環境配置" />&lt;h1 id="更新">更新&lt;/h1>
+&lt;p>markdownlint&lt;/p></description></item><item><title>C++ - 環境配置</title><link>https://huihsiang9292.github.io/p/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Wed, 31 May 2023 01:53:02 +0800</pubDate><guid>https://huihsiang9292.github.io/p/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/p/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/index.png" alt="Featured image of post C++ - 環境配置" />&lt;h1 id="更新">更新&lt;/h1>
 &lt;pre>&lt;code>pacman -Syu
 &lt;/code>&lt;/pre>
 &lt;h1 id="下載-mingw-w64">下載 mingw-w64&lt;/h1>
