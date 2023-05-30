@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog on Hello World 大冒險</title><link>https://huihsiang9292.github.io/categories/blog/</link><description>Recent content in Blog on Hello World 大冒險</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 15 May 2023 05:00:38 +0800</lastBuildDate><atom:link href="https://huihsiang9292.github.io/categories/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>部署hugo網站 (一)</title><link>https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/</link><pubDate>Mon, 15 May 2023 05:00:38 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/</guid><description>&lt;img src="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/index.png" alt="Featured image of post 部署hugo網站 (一)" />&lt;h1 id="配置環境">配置環境&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>部落格 on Hello World 大冒險</title><link>https://huihsiang9292.github.io/categories/%E9%83%A8%E8%90%BD%E6%A0%BC/</link><description>Recent content in 部落格 on Hello World 大冒險</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 15 May 2023 05:00:38 +0800</lastBuildDate><atom:link href="https://huihsiang9292.github.io/categories/%E9%83%A8%E8%90%BD%E6%A0%BC/index.xml" rel="self" type="application/rss+xml"/><item><title>hugo網站 (一)</title><link>https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/</link><pubDate>Mon, 15 May 2023 05:00:38 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/</guid><description>&lt;img src="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/index.png" alt="Featured image of post hugo網站 (一)" />&lt;h1 id="配置環境">配置環境&lt;/h1>
 &lt;h2 id="ubuntu">Ubuntu&lt;/h2>
 &lt;pre>&lt;code>sudo apt update &amp;amp;&amp;amp; sudo apt upgrade -y
 &lt;/code>&lt;/pre>
@@ -18,10 +18,10 @@ hugo version
 &lt;h2 id="私有儲存庫">私有儲存庫&lt;/h2>
 &lt;p>用來存放所有原始檔案，只有你看得到&lt;br>
 &lt;code>Repository name&lt;/code> 可以隨意取&lt;br>
-&lt;img src="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/01.png"
+&lt;img src="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/01.png"
 width="925"
 height="367"
-srcset="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/01_huc63367c4826d52cb49f3a26d9bee806b_88971_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/01_huc63367c4826d52cb49f3a26d9bee806b_88971_1024x0_resize_box_3.png 1024w"
+srcset="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/01_huc63367c4826d52cb49f3a26d9bee806b_88971_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/01_huc63367c4826d52cb49f3a26d9bee806b_88971_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="252"
@@ -30,10 +30,10 @@ data-flex-basis="604px"
 &lt;h2 id="公開儲存庫">公開儲存庫&lt;/h2>
 &lt;p>用來存放public裡的檔案，所有人都看得到&lt;br>
 &lt;code>Repository name&lt;/code> 要填上&lt;code>YourName.github.io&lt;/code>&lt;br>
-&lt;img src="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/02.png"
+&lt;img src="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/02.png"
 width="920"
 height="365"
-srcset="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/02_huf20a9bce82d5062ccd912836b7ba3158_92843_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/02_huf20a9bce82d5062ccd912836b7ba3158_92843_1024x0_resize_box_3.png 1024w"
+srcset="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/02_huf20a9bce82d5062ccd912836b7ba3158_92843_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/02_huf20a9bce82d5062ccd912836b7ba3158_92843_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="252"
@@ -41,10 +41,10 @@ data-flex-basis="604px"
 >&lt;/p>
 &lt;h1 id="配置hugo-theme-stack主題">配置hugo-theme-stack主題&lt;/h1>
 &lt;p>打開 vscode 後，clone 私有儲存庫&lt;br>
-&lt;img src="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/03.png"
+&lt;img src="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/03.png"
 width="737"
 height="97"
-srcset="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/03_hu04fd449fa0b7965ebd494e341d09b812_8322_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/03_hu04fd449fa0b7965ebd494e341d09b812_8322_1024x0_resize_box_3.png 1024w"
+srcset="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/03_hu04fd449fa0b7965ebd494e341d09b812_8322_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/03_hu04fd449fa0b7965ebd494e341d09b812_8322_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="759"
@@ -62,10 +62,10 @@ path = &amp;quot;github.com/CaiJimmy/hugo-theme-stack/v3&amp;quot;
 &lt;p>在本地預覽通常都會加上 &lt;code>-D&lt;/code> ，這樣才能顯示草稿&lt;/p>
 &lt;pre>&lt;code>hugo server -D
 &lt;/code>&lt;/pre>
-&lt;p>&lt;img src="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/04.png"
+&lt;p>&lt;img src="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/04.png"
 width="1293"
 height="644"
-srcset="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/04_hue1e75624e06f8ed494fe487731ed670f_41835_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/04_hue1e75624e06f8ed494fe487731ed670f_41835_1024x0_resize_box_3.png 1024w"
+srcset="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/04_hue1e75624e06f8ed494fe487731ed670f_41835_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/04_hue1e75624e06f8ed494fe487731ed670f_41835_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="200"
@@ -80,10 +80,10 @@ data-flex-basis="481px"
 >config&lt;/a>&lt;br>
 把 &lt;code>config&lt;/code> 資料夾複製到目錄下，刪除 &lt;code>config.toml&lt;/code>&lt;/li>
 &lt;/ul>
-&lt;p>&lt;img src="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/05.png"
+&lt;p>&lt;img src="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/05.png"
 width="186"
 height="270"
-srcset="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/05_hue69386799335a0767754d5661801151e_9430_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/05_hue69386799335a0767754d5661801151e_9430_1024x0_resize_box_3.png 1024w"
+srcset="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/05_hue69386799335a0767754d5661801151e_9430_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/05_hue69386799335a0767754d5661801151e_9430_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="68"
@@ -102,10 +102,10 @@ data-flex-basis="165px"
 &lt;p>建立 action 資料夾，加上 &lt;code>-p&lt;/code> 讓它可以一次建立兩層&lt;/p>
 &lt;pre>&lt;code>mkdir -p .github/workflows/
 &lt;/code>&lt;/pre>
-&lt;p>&lt;img src="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/06.png"
+&lt;p>&lt;img src="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/06.png"
 width="197"
 height="291"
-srcset="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/06_hu702575254988312aa0ea6b8a9e62a15c_10035_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/06_hu702575254988312aa0ea6b8a9e62a15c_10035_1024x0_resize_box_3.png 1024w"
+srcset="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/06_hu702575254988312aa0ea6b8a9e62a15c_10035_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/06_hu702575254988312aa0ea6b8a9e62a15c_10035_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="67"
@@ -180,10 +180,10 @@ data-flex-basis="162px"
 &lt;h2 id="生成密鑰">生成密鑰&lt;/h2>
 &lt;pre>&lt;code>ssh-keygen -t rsa -b 4096 -C &amp;quot;$(git config YourGithubMail)&amp;quot; -f key -N &amp;quot;&amp;quot;
 &lt;/code>&lt;/pre>
-&lt;p>&lt;img src="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/07.png"
+&lt;p>&lt;img src="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/07.png"
 width="185"
 height="305"
-srcset="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/07_hu2d2fa6bfa99dedcbbeba32cd48fcd7c2_10603_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/07_hu2d2fa6bfa99dedcbbeba32cd48fcd7c2_10603_1024x0_resize_box_3.png 1024w"
+srcset="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/07_hu2d2fa6bfa99dedcbbeba32cd48fcd7c2_10603_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/07_hu2d2fa6bfa99dedcbbeba32cd48fcd7c2_10603_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="60"
@@ -195,10 +195,10 @@ key 是私鑰，key.pub 是公鑰&lt;/p>
 &lt;/code>&lt;/pre>
 &lt;p>將顯示出來的內容全部複製，包含 &lt;code>-----BEGIN OPENSSH PRIVATE KEY-----&lt;/code> &lt;code>-----END OPENSSH PRIVATE KEY-----&lt;/code>，放在私有儲存庫&lt;br>
 名稱 : &lt;code>ACTIONS_DEPLOY_KEY&lt;/code>&lt;br>
-&lt;img src="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/08.png"
+&lt;img src="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/08.png"
 width="1278"
 height="735"
-srcset="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/08_hu6b400fbd968420f236d7a713dc397bfc_374102_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/08_hu6b400fbd968420f236d7a713dc397bfc_374102_1024x0_resize_box_3.png 1024w"
+srcset="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/08_hu6b400fbd968420f236d7a713dc397bfc_374102_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/08_hu6b400fbd968420f236d7a713dc397bfc_374102_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="173"
@@ -209,10 +209,10 @@ data-flex-basis="417px"
 &lt;/code>&lt;/pre>
 &lt;p>將顯示出來的內容全部複製，放在公開儲存庫&lt;br>
 名稱 : &lt;code>Public key of ACTIONS_DEPLOY_KEY&lt;/code>&lt;br>
-&lt;img src="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/09.png"
+&lt;img src="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/09.png"
 width="1262"
 height="736"
-srcset="https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/09_hu82c2a50051e7f4fe9adcfa59079488c4_253963_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/%E9%83%A8%E7%BD%B2hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/09_hu82c2a50051e7f4fe9adcfa59079488c4_253963_1024x0_resize_box_3.png 1024w"
+srcset="https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/09_hu82c2a50051e7f4fe9adcfa59079488c4_253963_480x0_resize_box_3.png 480w, https://huihsiang9292.github.io/2023/05/15/hugo%E7%B6%B2%E7%AB%99-%E4%B8%80/09_hu82c2a50051e7f4fe9adcfa59079488c4_253963_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="171"
