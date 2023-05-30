@@ -33,4 +33,6 @@
 &lt;h2 id="顯示句尾空白">顯示句尾空白&lt;/h2>
 &lt;p>Trailing Spaces&lt;/p>
 &lt;h2 id="錯別字檢查-限英文">錯別字檢查 (限英文)&lt;/h2>
-&lt;p>Code Spell Checker&lt;/p></description></item></channel></rss>
+&lt;p>Code Spell Checker&lt;/p>
+&lt;h2 id="markdown-文件格式化">Markdown 文件格式化&lt;/h2>
+&lt;p>markdownlint&lt;/p></description></item></channel></rss>
