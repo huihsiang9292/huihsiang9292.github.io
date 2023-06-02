@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MSYS2 on Hello World 大冒險</title><link>https://huihsiang9292.github.io/tags/msys2/</link><description>Recent content in MSYS2 on Hello World 大冒險</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 31 May 2023 01:53:02 +0800</lastBuildDate><atom:link href="https://huihsiang9292.github.io/tags/msys2/index.xml" rel="self" type="application/rss+xml"/><item><title>C++ 環境配置</title><link>https://huihsiang9292.github.io/2023/05/31/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Wed, 31 May 2023 01:53:02 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/05/31/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/2023/05/31/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/index.png" alt="Featured image of post C++ 環境配置" />&lt;h1 id="安裝-msys2">安裝 MSYS2&lt;/h1>
+&lt;p>&lt;a class="link" href="https://www.msys2.org/" target="_blank" rel="noopener"
+>下載連結&lt;/a>&lt;br>
+如果沒有要更改安裝位置的話，持續點擊下一步就好&lt;/p>
+&lt;h1 id="更新">更新&lt;/h1>
+&lt;p>打開 MSYS2&lt;/p>
+&lt;pre>&lt;code>pacman -Syu
+&lt;/code>&lt;/pre>
+&lt;h1 id="下載-mingw-w64">下載 mingw-w64&lt;/h1>
+&lt;pre>&lt;code>pacman -S mingw-w64-ucrt-x86_64-gcc
+&lt;/code>&lt;/pre>
+&lt;h1 id="下載--mingw-w64-工具組">下載 mingw-w64 工具組&lt;/h1>
+&lt;pre>&lt;code>pacman -S --needed base-devel mingw-w64-x86_64-toolchain
+&lt;/code>&lt;/pre>
+&lt;h1 id="新增環境變數">新增環境變數&lt;/h1>
+&lt;ol>
+&lt;li>複製 &lt;code>mingw-w64&lt;/code> 中 &lt;code>bin&lt;/code> 的路徑 ( 預設安裝路徑 : &lt;code>C:\msys64\mingw64\bin&lt;/code> )&lt;/li>
+&lt;li>設定 &amp;gt; 系統 &amp;gt; 系統資訊 &amp;gt; 進階系統設定 &amp;gt; 進階 &amp;gt; 環境變數 &amp;gt; Path&lt;/li>
+&lt;li>將 &lt;code>C:\msys64\mingw64\bin&lt;/code> 新增至 &lt;code>Path&lt;/code> 中&lt;/li>
+&lt;/ol>
+&lt;h1 id="檢查">檢查&lt;/h1>
+&lt;p>如果沒有出現奇怪的東西，就表示成功了&lt;/p>
+&lt;pre>&lt;code>gcc --version
+g++ --version
+gdb --version
+&lt;/code>&lt;/pre></description></item></channel></rss>

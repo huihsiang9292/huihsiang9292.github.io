@@ -1,4 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Hello World 大冒險</title><link>https://huihsiang9292.github.io/post/</link><description>Recent content in Posts on Hello World 大冒險</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 31 May 2023 01:56:21 +0800</lastBuildDate><atom:link href="https://huihsiang9292.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Visual Studio Code 環境配置</title><link>https://huihsiang9292.github.io/2023/05/31/visual-studio-code-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Wed, 31 May 2023 01:56:21 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/05/31/visual-studio-code-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/2023/05/31/visual-studio-code-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/index.png" alt="Featured image of post Visual Studio Code 環境配置" />&lt;h1 id="設定">設定&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Hello World 大冒險</title><link>https://huihsiang9292.github.io/post/</link><description>Recent content in Posts on Hello World 大冒險</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Sat, 03 Jun 2023 03:02:00 +0800</lastBuildDate><atom:link href="https://huihsiang9292.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>SDL2 環境配置</title><link>https://huihsiang9292.github.io/2023/06/03/sdl2-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Sat, 03 Jun 2023 03:02:00 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/06/03/sdl2-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/index.png" alt="Featured image of post SDL2 環境配置" />&lt;h1 id="下載-sdl2">下載 SDL2&lt;/h1>
+&lt;pre>&lt;code>pacman -S mingw-w64-x86_64-SDL2
+mingw-w64-x86_64-SDL2_gfx
+mingw-w64-x86_64-SDL2_image
+mingw-w64-x86_64-SDL2_mixer
+mingw-w64-x86_64-SDL2_net
+mingw-w64-x86_64-SDL2_ttf
+&lt;/code>&lt;/pre>
+&lt;h1 id="編譯參數">編譯參數&lt;/h1>
+&lt;p>在 &lt;code>.vscode\tasks.json&lt;/code> 中，照順序添加四個參數&lt;/p>
+&lt;pre>&lt;code>&amp;quot;args&amp;quot;: [
+&amp;quot;-fdiagnostics-color=always&amp;quot;,
+&amp;quot;-g&amp;quot;,
+&amp;quot;${file}&amp;quot;,
+&amp;quot;-lmingw32&amp;quot;, //參數1
+&amp;quot;-mwindows&amp;quot;, //參數2
+&amp;quot;-lSDL2main&amp;quot;, //參數3
+&amp;quot;-lSDL2&amp;quot;, //參數4
+&amp;quot;-o&amp;quot;,
+&amp;quot;${fileDirname}\\${fileBasenameNoExtension}.exe&amp;quot;
+],&lt;/code>&lt;/pre></description></item><item><title>Visual Studio Code 環境配置</title><link>https://huihsiang9292.github.io/2023/05/31/visual-studio-code-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Wed, 31 May 2023 01:56:21 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/05/31/visual-studio-code-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/2023/05/31/visual-studio-code-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/index.png" alt="Featured image of post Visual Studio Code 環境配置" />&lt;h1 id="設定">設定&lt;/h1>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -40,7 +60,10 @@
 >Code Spell Checker&lt;/a>&lt;/p>
 &lt;h2 id="markdown-文件格式化">Markdown 文件格式化&lt;/h2>
 &lt;p>&lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint" target="_blank" rel="noopener"
->markdownlint&lt;/a>&lt;/p></description></item><item><title>C++ 環境配置</title><link>https://huihsiang9292.github.io/2023/05/31/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Wed, 31 May 2023 01:53:02 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/05/31/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/2023/05/31/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/index.png" alt="Featured image of post C++ 環境配置" />&lt;h1 id="安裝-msys2">安裝 MSYS2&lt;/h1>
+>markdownlint&lt;/a>&lt;/p>
+&lt;h2 id="c-語言支援">C++ 語言支援&lt;/h2>
+&lt;p>&lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools" target="_blank" rel="noopener"
+>C/C++&lt;/a>&lt;/p></description></item><item><title>C++ 環境配置</title><link>https://huihsiang9292.github.io/2023/05/31/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Wed, 31 May 2023 01:53:02 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/05/31/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/2023/05/31/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/index.png" alt="Featured image of post C++ 環境配置" />&lt;h1 id="安裝-msys2">安裝 MSYS2&lt;/h1>
 &lt;p>&lt;a class="link" href="https://www.msys2.org/" target="_blank" rel="noopener"
 >下載連結&lt;/a>&lt;br>
 如果沒有要更改安裝位置的話，持續點擊下一步就好&lt;/p>
