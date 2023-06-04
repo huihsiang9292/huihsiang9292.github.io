@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SFML on Hello World 大冒險</title><link>https://huihsiang9292.github.io/tags/sfml/</link><description>Recent content in SFML on Hello World 大冒險</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Sun, 04 Jun 2023 22:38:51 +0800</lastBuildDate><atom:link href="https://huihsiang9292.github.io/tags/sfml/index.xml" rel="self" type="application/rss+xml"/><item><title>SFML 環境配置</title><link>https://huihsiang9292.github.io/2023/06/04/sfml-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Sun, 04 Jun 2023 22:38:51 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/06/04/sfml-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/index.png" alt="Featured image of post SFML 環境配置" />&lt;h1 id="下載-mingwsfmlhttpswwwsfml-devorgdownloadsfml251">下載 &lt;a class="link" href="https://www.sfml-dev.org/download/sfml/2.5.1/" target="_blank" rel="noopener"
 >MinGW、SFML&lt;/a>&lt;/h1>
-&lt;p>&lt;code> MinGW Builds 7.3.0 (64-bit)&lt;/code>、&lt;code>GCC 7.3.0 MinGW (SEH) - 64-bit&lt;/code> 的版本必須完全匹配&lt;/p>
+&lt;p>&lt;code> MinGW Builds 7.3.0 (64-bit)&lt;/code>、&lt;code>GCC 7.3.0 MinGW (SEH) - 64-bit&lt;/code>&lt;br>
+如果要使用自己的 MinGW ，版本必須與 SFML 相同&lt;/p>
 &lt;h1 id="配置環境變數">配置環境變數&lt;/h1>
 &lt;ol>
 &lt;li>解壓縮後，將 &lt;code>x86_64-7.3.0-release-posix-seh-rt_v5-rev0&lt;/code> 重新命名成 &lt;code>mingw64-7.3.0&lt;/code>&lt;/li>
@@ -69,7 +70,7 @@
 &lt;li>將滑鼠移至 &lt;code>#include &amp;lt;SFML/Graphics.hpp&amp;gt;&lt;/code> 的紅色波浪上，點擊 &lt;code>快速修復&lt;/code>、&lt;code>編輯&amp;quot;includePath&amp;quot;設定&lt;/code>&lt;/li>
 &lt;li>將 &lt;code>編譯器路徑&lt;/code> 改為 &lt;code>C:/sfml/mingw64-7.3.0/bin/g++.exe&lt;/code>&lt;/li>
 &lt;li>在 &lt;code>包含路徑&lt;/code> 新增一行 &lt;code>C:\sfml\SFML-2.5.1\include&lt;/code>&lt;/li>
-&lt;li>編譯之後會報錯，在自動建立的 &lt;code>.vscode/tasks.json&lt;/code> 中增加&lt;/li>
+&lt;li>編譯之後會報錯，在自動建立的 &lt;code>.vscode/tasks.json&lt;/code> 中修改&lt;/li>
 &lt;/ol>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
