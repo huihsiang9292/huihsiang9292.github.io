@@ -1,0 +1,442 @@
+<!doctype html><html lang=zh-tw dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="vscode + msys2 + easyx"><title>C++ 跳動的愛心</title><link rel=canonical href=https://huihsiang9292.github.io/2023/05/24/c-%E8%B7%B3%E5%8B%95%E7%9A%84%E6%84%9B%E5%BF%83/><link rel=stylesheet href=/scss/style.min.8191399262444ab68b72a18c97392f5349be20a1615d77445be51e974c144cff.css><meta property="og:title" content="C++ 跳動的愛心"><meta property="og:description" content="vscode + msys2 + easyx"><meta property="og:url" content="https://huihsiang9292.github.io/2023/05/24/c-%E8%B7%B3%E5%8B%95%E7%9A%84%E6%84%9B%E5%BF%83/"><meta property="og:site_name" content="Hello World 大冒險"><meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="C++"><meta property="article:published_time" content="2023-05-24T04:02:29+08:00"><meta property="article:modified_time" content="2023-05-24T04:02:29+08:00"><meta property="og:image" content="https://huihsiang9292.github.io/2023/05/24/c-%E8%B7%B3%E5%8B%95%E7%9A%84%E6%84%9B%E5%BF%83/index.png"><meta name=twitter:title content="C++ 跳動的愛心"><meta name=twitter:description content="vscode + msys2 + easyx"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://huihsiang9292.github.io/2023/05/24/c-%E8%B7%B3%E5%8B%95%E7%9A%84%E6%84%9B%E5%BF%83/index.png"><link rel="shortcut icon" href=img/favicon.ico></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/>Hello World 大冒險</a></h1><h2 class=site-description>世界那麼大，我想去看看</h2></div></header><ol class=social-menu><li><a href=https://github.com/huihsiang9292 target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://huihsiang9292.github.io/index.xml target=_blank title=RSS rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="5" cy="19" r="1"/><path d="M4 4a16 16 0 0116 16"/><path d="M4 11a9 9 0 019 9"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg><span>Home</span></a></li><li><a href=/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg><span>About</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span>Archives</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg><span>Search</span></a></li><div class=menu-bottom-section><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><span>Dark Mode</span></li></div></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">Table of contents</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#參考資料>參考資料</a></li><li><a href=#程式碼>程式碼</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/2023/05/24/c-%E8%B7%B3%E5%8B%95%E7%9A%84%E6%84%9B%E5%BF%83/><img src=/2023/05/24/c-%E8%B7%B3%E5%8B%95%E7%9A%84%E6%84%9B%E5%BF%83/index_hu152e490707b566b6d11a661682c8d7b1_4131650_800x0_resize_box_3.png srcset="/2023/05/24/c-%E8%B7%B3%E5%8B%95%E7%9A%84%E6%84%9B%E5%BF%83/index_hu152e490707b566b6d11a661682c8d7b1_4131650_800x0_resize_box_3.png 800w, /2023/05/24/c-%E8%B7%B3%E5%8B%95%E7%9A%84%E6%84%9B%E5%BF%83/index_hu152e490707b566b6d11a661682c8d7b1_4131650_1600x0_resize_box_3.png 1600w" width=800 height=240 loading=lazy alt="Featured image of post C++ 跳動的愛心"></a></div><div class=article-details><header class=article-category><a href=/categories/%E7%A8%8B%E8%A8%AD%E5%B0%88%E9%A1%8C/>程設專題</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/2023/05/24/c-%E8%B7%B3%E5%8B%95%E7%9A%84%E6%84%9B%E5%BF%83/>C++ 跳動的愛心</a></h2><h3 class=article-subtitle>vscode + msys2 + easyx</h3></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg><time class=article-time--published>2023/05/24</time></div></footer></div></header><section class=article-content><h1 id=參考資料>參考資料</h1><p><a class=link href="https://www.bilibili.com/video/BV1NM411k7PF/?spm_id_from=333.999.0.0" target=_blank rel=noopener>C语言绘制爱心详细教程</a><br><a class=link href="https://www.bilibili.com/read/cv20048480?spm_id_from=333.999.0.0" target=_blank rel=noopener>C语言爱心代码easyx有注释版</a></p><h1 id=程式碼>程式碼</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span><span class=lnt>182
+</span><span class=lnt>183
+</span><span class=lnt>184
+</span><span class=lnt>185
+</span><span class=lnt>186
+</span><span class=lnt>187
+</span><span class=lnt>188
+</span><span class=lnt>189
+</span><span class=lnt>190
+</span><span class=lnt>191
+</span><span class=lnt>192
+</span><span class=lnt>193
+</span><span class=lnt>194
+</span><span class=lnt>195
+</span><span class=lnt>196
+</span><span class=lnt>197
+</span><span class=lnt>198
+</span><span class=lnt>199
+</span><span class=lnt>200
+</span><span class=lnt>201
+</span><span class=lnt>202
+</span><span class=lnt>203
+</span><span class=lnt>204
+</span><span class=lnt>205
+</span><span class=lnt>206
+</span><span class=lnt>207
+</span><span class=lnt>208
+</span><span class=lnt>209
+</span><span class=lnt>210
+</span><span class=lnt>211
+</span><span class=lnt>212
+</span><span class=lnt>213
+</span><span class=lnt>214
+</span><span class=lnt>215
+</span><span class=lnt>216
+</span><span class=lnt>217
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cp>#include</span><span class=cpf>&lt;graphics.h&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;conio.h&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span><span class=cpf>&lt;time.h&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span><span class=cpf>&lt;math.h&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span><span class=cpf>&lt;stdlib.h&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp></span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>//爱心点结构体
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>struct</span> <span class=nc>Point</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=kt>double</span> <span class=n>x</span><span class=p>,</span> <span class=n>y</span><span class=p>;</span>     <span class=c1>//坐标
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=n>COLORREF</span> <span class=n>color</span><span class=p>;</span>  <span class=c1>//颜色
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>};</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>//颜色数组
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>COLORREF</span> <span class=n>colors</span><span class=p>[</span><span class=mi>7</span><span class=p>]</span> <span class=o>=</span> <span class=p>{</span> <span class=n>RGB</span><span class=p>(</span><span class=mi>255</span><span class=p>,</span><span class=mi>32</span><span class=p>,</span><span class=mi>83</span><span class=p>),</span><span class=n>RGB</span><span class=p>(</span><span class=mi>252</span><span class=p>,</span><span class=mi>222</span><span class=p>,</span><span class=mi>250</span><span class=p>)</span> <span class=p>,</span><span class=n>RGB</span><span class=p>(</span><span class=mi>255</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span> <span class=p>,</span><span class=n>RGB</span><span class=p>(</span><span class=mi>255</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>0</span><span class=p>)</span> <span class=p>,</span><span class=n>RGB</span><span class=p>(</span><span class=mi>255</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>2</span><span class=p>)</span> <span class=p>,</span><span class=n>RGB</span><span class=p>(</span><span class=mi>255</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=mi>8</span><span class=p>)</span> <span class=p>,</span><span class=n>RGB</span><span class=p>(</span><span class=mi>255</span><span class=p>,</span><span class=mi>5</span><span class=p>,</span><span class=mi>5</span><span class=p>)</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl><span class=c1>//COLORREF colors[7] = { RGB(55,132,83),RGB(252,222,250) ,RGB(25,120,130) ,RGB(25,230,40) ,RGB(25,24,112) ,RGB(255,230,128) ,RGB(25,5,215) };
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>const</span> <span class=kt>int</span> <span class=n>xScreen</span> <span class=o>=</span> <span class=mi>1200</span><span class=p>;</span>				  <span class=c1>//屏幕宽度
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>const</span> <span class=kt>int</span> <span class=n>yScreen</span> <span class=o>=</span> <span class=mi>800</span><span class=p>;</span>				  <span class=c1>//屏幕高度
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>const</span> <span class=kt>double</span> <span class=n>PI</span> <span class=o>=</span> <span class=mf>3.1426535159</span><span class=p>;</span>         <span class=c1>//圆周率
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>const</span> <span class=kt>double</span> <span class=n>e</span> <span class=o>=</span> <span class=mf>2.71828</span><span class=p>;</span>				  <span class=c1>//自然数e
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>const</span> <span class=kt>double</span> <span class=n>averag_distance</span> <span class=o>=</span> <span class=mf>0.162</span><span class=p>;</span>    <span class=c1>//弧度以0.01增长时，原始参数方程每个点的平均距离
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>const</span> <span class=kt>int</span> <span class=n>quantity</span> <span class=o>=</span> <span class=mi>506</span><span class=p>;</span>				  <span class=c1>//一个完整爱心所需点的数量
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>const</span> <span class=kt>int</span> <span class=n>circles</span> <span class=o>=</span> <span class=mi>210</span><span class=p>;</span>				  <span class=c1>//组成爱心主体的爱心个数（每个爱心会乘以不同系数）
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>const</span> <span class=kt>int</span> <span class=n>frames</span> <span class=o>=</span> <span class=mi>20</span><span class=p>;</span>					  <span class=c1>//爱心扩张一次的帧数
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>Point</span>  <span class=n>origin_points</span><span class=p>[</span><span class=n>quantity</span><span class=p>];</span>			  <span class=c1>//创建一个保存原始爱心数据的数组
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>Point</span>  <span class=n>points</span><span class=p>[</span><span class=n>circles</span> <span class=o>*</span> <span class=n>quantity</span><span class=p>];</span>      <span class=c1>//创建一个保存所有爱心数据的数组
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>IMAGE</span> <span class=n>images</span><span class=p>[</span><span class=n>frames</span><span class=p>];</span>					  <span class=c1>//创建图片数组
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>//坐标转换函数
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>double</span> <span class=nf>screen_x</span><span class=p>(</span><span class=kt>double</span> <span class=n>x</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=n>x</span> <span class=o>+=</span> <span class=n>xScreen</span> <span class=o>/</span> <span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=n>x</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=c1>//坐标转换函数
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>double</span> <span class=nf>screen_y</span><span class=p>(</span><span class=kt>double</span> <span class=n>y</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=n>y</span> <span class=o>=</span> <span class=o>-</span><span class=n>y</span> <span class=o>+</span> <span class=n>yScreen</span> <span class=o>/</span> <span class=mi>2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=n>y</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>//创建x1-x2的随机数的函数
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=nf>creat_random</span><span class=p>(</span><span class=kt>int</span> <span class=n>x1</span><span class=p>,</span> <span class=kt>int</span> <span class=n>x2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=p>(</span><span class=n>x2</span> <span class=o>&gt;</span> <span class=n>x1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span>  <span class=n>rand</span><span class=p>()</span> <span class=o>%</span> <span class=p>(</span><span class=n>x2</span> <span class=o>-</span> <span class=n>x1</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)</span> <span class=o>+</span> <span class=n>x1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>else</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>//创建爱心扩张一次的全部数据，并绘制成20张图片保存
+</span></span></span><span class=line><span class=cl><span class=c1>// 1 用参数方程计算出一个爱心的所有坐标并保存在 origin_points 中
+</span></span></span><span class=line><span class=cl><span class=c1>// 2 重复对 origin_points 的所有坐标乘上不同的系数获得一个完整的爱心坐标数据，并保存在 points 中
+</span></span></span><span class=line><span class=cl><span class=c1>// 3 通过一些数学逻辑计算 points 中所有点扩张后的坐标并绘制，并覆盖掉原来的数据（循环20次）
+</span></span></span><span class=line><span class=cl><span class=c1>// 4 计算圆的外层那些闪动的点，不保存这些点的数据（循环20次）
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>void</span> <span class=nf>creat_data</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=kt>int</span> <span class=n>index</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=c1>//保存相邻的坐标信息以便用于计算距离
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=kt>double</span> <span class=n>x1</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=n>y1</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=n>x2</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=n>y2</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=p>(</span><span class=kt>double</span> <span class=n>radian</span> <span class=o>=</span> <span class=mf>0.1</span><span class=p>;</span> <span class=n>radian</span> <span class=o>&lt;=</span> <span class=mi>2</span> <span class=o>*</span> <span class=n>PI</span><span class=p>;</span> <span class=n>radian</span> <span class=o>+=</span> <span class=mf>0.005</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=c1>//爱心的参数方程
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=n>x2</span> <span class=o>=</span> <span class=mi>16</span> <span class=o>*</span> <span class=n>pow</span><span class=p>(</span><span class=n>sin</span><span class=p>(</span><span class=n>radian</span><span class=p>),</span> <span class=mi>3</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=n>y2</span> <span class=o>=</span> <span class=mi>13</span> <span class=o>*</span> <span class=n>cos</span><span class=p>(</span><span class=n>radian</span><span class=p>)</span> <span class=o>-</span> <span class=mi>5</span> <span class=o>*</span> <span class=n>cos</span><span class=p>(</span><span class=mi>2</span> <span class=o>*</span> <span class=n>radian</span><span class=p>)</span> <span class=o>-</span> <span class=mi>2</span> <span class=o>*</span> <span class=n>cos</span><span class=p>(</span><span class=mi>3</span> <span class=o>*</span> <span class=n>radian</span><span class=p>)</span> <span class=o>-</span> <span class=n>cos</span><span class=p>(</span><span class=mi>4</span> <span class=o>*</span> 		<span class=n>radian</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=c1>//计算两点之间的距离 开根号（(x1-x2)平方 + （y1-y1）平方）
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=kt>double</span> <span class=n>distance</span> <span class=o>=</span> <span class=n>sqrt</span><span class=p>(</span><span class=n>pow</span><span class=p>(</span><span class=n>x2</span> <span class=o>-</span> <span class=n>x1</span><span class=p>,</span> <span class=mi>2</span><span class=p>)</span> <span class=o>+</span> <span class=n>pow</span><span class=p>(</span><span class=n>y2</span> <span class=o>-</span> <span class=n>y1</span><span class=p>,</span> <span class=mi>2</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=c1>//只有当两点之间的距离大于平均距离才保存这个点，否则跳过这个点
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=k>if</span> <span class=p>(</span><span class=n>distance</span> <span class=o>&gt;</span> <span class=n>averag_distance</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=c1>//x1和y1保留当前数据
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=c1>//x2和y2将在下一次迭代获得下一个点的坐标
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=n>x1</span> <span class=o>=</span> <span class=n>x2</span><span class=p>,</span> <span class=n>y1</span> <span class=o>=</span> <span class=n>y2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>			<span class=n>origin_points</span><span class=p>[</span><span class=n>index</span><span class=p>].</span><span class=n>x</span> <span class=o>=</span> <span class=n>x2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>			<span class=n>origin_points</span><span class=p>[</span><span class=n>index</span><span class=o>++</span><span class=p>].</span><span class=n>y</span> <span class=o>=</span> <span class=n>y2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=n>index</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=p>(</span><span class=kt>double</span> <span class=n>size</span> <span class=o>=</span> <span class=mf>0.1</span><span class=p>;</span> <span class=n>size</span> <span class=o>&lt;=</span> <span class=mi>20</span><span class=p>;</span> <span class=n>size</span> <span class=o>+=</span> <span class=mf>0.1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=c1>//用sigmoid函数计算当前系数的成功概率
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=c1>//用个例子说明一下，假设有100个点成功概率为 90%，那么就可能会有90个点经过筛选保留下来
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=c1>//					假设有100个点成功概率为 20%，那么就可能会有20个点经过筛选保留下来
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=kt>double</span> <span class=n>success_p</span> <span class=o>=</span> <span class=mi>1</span> <span class=o>/</span> <span class=p>(</span><span class=mi>1</span> <span class=o>+</span> <span class=n>pow</span><span class=p>(</span><span class=n>e</span><span class=p>,</span> <span class=mi>8</span> <span class=o>-</span> <span class=n>size</span> <span class=o>/</span> <span class=mi>2</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=c1>//遍历所有原始数据
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>quantity</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=c1>//用概率进行筛选
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=k>if</span> <span class=p>(</span><span class=n>success_p</span> <span class=o>&gt;</span> <span class=n>creat_random</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>100</span><span class=p>)</span> <span class=o>/</span> <span class=mf>100.0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>			<span class=p>{</span>
+</span></span><span class=line><span class=cl>				<span class=c1>//从颜色数组随机获得一个颜色
+</span></span></span><span class=line><span class=cl><span class=c1></span>				<span class=n>points</span><span class=p>[</span><span class=n>index</span><span class=p>].</span><span class=n>color</span> <span class=o>=</span> <span class=n>colors</span><span class=p>[</span><span class=n>creat_random</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>6</span><span class=p>)];</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>				<span class=c1>//对原始数据乘上系数保存在points中
+</span></span></span><span class=line><span class=cl><span class=c1></span>				<span class=n>points</span><span class=p>[</span><span class=n>index</span><span class=p>].</span><span class=n>x</span> <span class=o>=</span> <span class=n>size</span> <span class=o>*</span> <span class=n>origin_points</span><span class=p>[</span><span class=n>i</span><span class=p>].</span><span class=n>x</span> <span class=o>+</span> <span class=n>creat_random</span><span class=p>(</span><span class=o>-</span><span class=mi>4</span><span class=p>,</span> <span class=mi>4</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>				<span class=n>points</span><span class=p>[</span><span class=n>index</span><span class=o>++</span><span class=p>].</span><span class=n>y</span> <span class=o>=</span> <span class=n>size</span> <span class=o>*</span> <span class=n>origin_points</span><span class=p>[</span><span class=n>i</span><span class=p>].</span><span class=n>y</span> <span class=o>+</span> <span class=n>creat_random</span><span class=p>(</span><span class=o>-</span><span class=mi>4</span><span class=p>,</span> <span class=mi>4</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>			<span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=c1>//index当前值就是points中保存了结构体的数量
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=kt>int</span> <span class=n>points_size</span> <span class=o>=</span> <span class=n>index</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>frame</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>frame</span> <span class=o>&lt;</span> <span class=n>frames</span><span class=p>;</span> <span class=o>++</span><span class=n>frame</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=c1>//初始化每张图片宽xScreen，高yScreen
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=n>images</span><span class=p>[</span><span class=n>frame</span><span class=p>]</span> <span class=o>=</span> <span class=n>IMAGE</span><span class=p>(</span><span class=n>xScreen</span><span class=p>,</span> <span class=n>yScreen</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=c1>//把第frame张图像设为当前工作图片
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=n>SetWorkingImage</span><span class=p>(</span><span class=o>&amp;</span><span class=n>images</span><span class=p>[</span><span class=n>frame</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=c1>//计算爱心跳动的坐标
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=k>for</span> <span class=p>(</span><span class=n>index</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>index</span> <span class=o>&lt;</span> <span class=n>points_size</span><span class=p>;</span> <span class=o>++</span><span class=n>index</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=p>{</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>			<span class=kt>double</span> <span class=n>x</span> <span class=o>=</span> <span class=n>points</span><span class=p>[</span><span class=n>index</span><span class=p>].</span><span class=n>x</span><span class=p>,</span> <span class=n>y</span> <span class=o>=</span> <span class=n>points</span><span class=p>[</span><span class=n>index</span><span class=p>].</span><span class=n>y</span><span class=p>;</span>                              <span class=c1>//把当前值赋值给x和y
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=kt>double</span> <span class=n>distance</span> <span class=o>=</span> <span class=n>sqrt</span><span class=p>(</span><span class=n>pow</span><span class=p>(</span><span class=n>x</span><span class=p>,</span> <span class=mi>2</span><span class=p>)</span> <span class=o>+</span> <span class=n>pow</span><span class=p>(</span><span class=n>y</span><span class=p>,</span> <span class=mi>2</span><span class=p>));</span>										<span class=c1>//计算当前点与原点的距离
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=kt>double</span> <span class=n>diatance_increase</span> <span class=o>=</span> <span class=o>-</span><span class=mf>0.0009</span> <span class=o>*</span> <span class=n>distance</span> <span class=o>*</span> <span class=n>distance</span> <span class=o>+</span> <span class=mf>0.35714</span> <span class=o>*</span> 				<span class=n>distance</span> <span class=o>+</span> <span class=mi>5</span><span class=p>;</span>	<span class=c1>//把当前距离代入方程获得该点的增长距离
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>			<span class=c1>//根据增长距离计算x轴方向的增长距离 x_increase = diatance_increase * cos（当前角度）
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=c1>//cos（当前角度）= x / distance
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=kt>double</span> <span class=n>x_increase</span> <span class=o>=</span> <span class=n>diatance_increase</span> <span class=o>*</span> <span class=n>x</span> <span class=o>/</span> <span class=n>distance</span> <span class=o>/</span> <span class=n>frames</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>			<span class=c1>//根据增长距离计算x轴方向的增长距离 x_increase = diatance_increase * sin（当前角度）
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=c1>//sin（当前角度）= y / distance
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=kt>double</span> <span class=n>y_increase</span> <span class=o>=</span> <span class=n>diatance_increase</span> <span class=o>*</span> <span class=n>y</span> <span class=o>/</span> <span class=n>distance</span> <span class=o>/</span> <span class=n>frames</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>			<span class=c1>//因为以上计算得到的是一整个过程的增长距离，而整个过程持续20帧，因此要除20
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>			<span class=c1>//用新的数据覆盖原来的数据
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=n>points</span><span class=p>[</span><span class=n>index</span><span class=p>].</span><span class=n>x</span> <span class=o>+=</span> <span class=n>x_increase</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>			<span class=n>points</span><span class=p>[</span><span class=n>index</span><span class=p>].</span><span class=n>y</span> <span class=o>+=</span> <span class=n>y_increase</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>			<span class=c1>//提取当前点的颜色设置为绘画颜色
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=n>setfillcolor</span><span class=p>(</span><span class=n>points</span><span class=p>[</span><span class=n>index</span><span class=p>].</span><span class=n>color</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>			<span class=c1>//注意，因为以上所有坐标是基于数学坐标的
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=c1>//因此绘制到屏幕是就要转换为屏幕坐标
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=n>solidcircle</span><span class=p>(</span><span class=n>screen_x</span><span class=p>(</span><span class=n>points</span><span class=p>[</span><span class=n>index</span><span class=p>].</span><span class=n>x</span><span class=p>),</span> <span class=n>screen_y</span><span class=p>(</span><span class=n>points</span><span class=p>[</span><span class=n>index</span><span class=p>].</span><span class=n>y</span><span class=p>),</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=c1>//产生外围闪动的点
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=k>for</span> <span class=p>(</span><span class=kt>double</span> <span class=n>size</span> <span class=o>=</span> <span class=mi>17</span><span class=p>;</span> <span class=n>size</span> <span class=o>&lt;</span> <span class=mi>23</span><span class=p>;</span> <span class=n>size</span> <span class=o>+=</span> <span class=mf>0.3</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=k>for</span> <span class=p>(</span><span class=n>index</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>index</span> <span class=o>&lt;</span> <span class=n>quantity</span><span class=p>;</span> <span class=o>++</span><span class=n>index</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>			<span class=p>{</span>
+</span></span><span class=line><span class=cl>				<span class=c1>//当系数大于等于20，通过概率为百分之四十，当系数小于20，通过概率为百分之五
+</span></span></span><span class=line><span class=cl><span class=c1></span>				<span class=c1>//20作为关键值是因为爱心主体的最大系数就是20
+</span></span></span><span class=line><span class=cl><span class=c1></span>				<span class=k>if</span> <span class=p>((</span><span class=n>creat_random</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>100</span><span class=p>)</span> <span class=o>/</span> <span class=mf>100.0</span> <span class=o>&gt;</span> <span class=mf>0.6</span> <span class=o>&amp;&amp;</span> <span class=n>size</span> <span class=o>&gt;=</span> <span class=mi>20</span><span class=p>)</span> <span class=o>||</span> <span class=p>(</span><span class=n>size</span> <span class=o>&lt;</span> <span class=mi>20</span> <span class=o>&amp;&amp;</span> 				<span class=n>creat_random</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>100</span><span class=p>)</span> <span class=o>/</span> <span class=mf>100.0</span> <span class=o>&gt;</span> <span class=mf>0.95</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>				<span class=p>{</span>
+</span></span><span class=line><span class=cl>					<span class=kt>double</span> <span class=n>x</span><span class=p>,</span> <span class=n>y</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>					<span class=k>if</span> <span class=p>(</span><span class=n>size</span> <span class=o>&gt;=</span> <span class=mi>20</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>					<span class=p>{</span>
+</span></span><span class=line><span class=cl>						<span class=c1>//用frame的平方的正负值作为上下限并加减15产生随机数
+</span></span></span><span class=line><span class=cl><span class=c1></span>						<span class=c1>//用frame的平方的好处是frame越大，外围闪动的点运动范围越大
+</span></span></span><span class=line><span class=cl><span class=c1></span>						<span class=n>x</span> <span class=o>=</span> <span class=n>origin_points</span><span class=p>[</span><span class=n>index</span><span class=p>].</span><span class=n>x</span> <span class=o>*</span> <span class=n>size</span> <span class=o>+</span> <span class=n>creat_random</span><span class=p>(</span><span class=o>-</span><span class=n>frame</span> <span class=o>*</span> <span class=n>frame</span> 						<span class=o>/</span> <span class=mi>5</span> <span class=o>-</span> <span class=mi>15</span><span class=p>,</span> <span class=n>frame</span> <span class=o>*</span> <span class=n>frame</span> <span class=o>/</span> <span class=mi>5</span> <span class=o>+</span> <span class=mi>15</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>						<span class=n>y</span> <span class=o>=</span> <span class=n>origin_points</span><span class=p>[</span><span class=n>index</span><span class=p>].</span><span class=n>y</span> <span class=o>*</span> <span class=n>size</span> <span class=o>+</span> <span class=n>creat_random</span><span class=p>(</span><span class=o>-</span><span class=n>frame</span> <span class=o>*</span> <span class=n>frame</span> 						<span class=o>/</span> <span class=mi>5</span> <span class=o>-</span> <span class=mi>15</span><span class=p>,</span> <span class=n>frame</span> <span class=o>*</span> <span class=n>frame</span> <span class=o>/</span> <span class=mi>5</span> <span class=o>+</span> <span class=mi>15</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>					<span class=p>}</span>
+</span></span><span class=line><span class=cl>					<span class=k>else</span>
+</span></span><span class=line><span class=cl>					<span class=p>{</span>
+</span></span><span class=line><span class=cl>						<span class=c1>//对于系数小于20的处理与爱心点一样
+</span></span></span><span class=line><span class=cl><span class=c1></span>						<span class=n>x</span> <span class=o>=</span> <span class=n>origin_points</span><span class=p>[</span><span class=n>index</span><span class=p>].</span><span class=n>x</span> <span class=o>*</span> <span class=n>size</span> <span class=o>+</span> <span class=n>creat_random</span><span class=p>(</span><span class=o>-</span><span class=mi>5</span><span class=p>,</span> <span class=mi>5</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>						<span class=n>y</span> <span class=o>=</span> <span class=n>origin_points</span><span class=p>[</span><span class=n>index</span><span class=p>].</span><span class=n>y</span> <span class=o>*</span> <span class=n>size</span> <span class=o>+</span> <span class=n>creat_random</span><span class=p>(</span><span class=o>-</span><span class=mi>5</span><span class=p>,</span> <span class=mi>5</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>					<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>					<span class=c1>//随机获取颜色并设置为当前绘图颜色
+</span></span></span><span class=line><span class=cl><span class=c1></span>					<span class=n>setfillcolor</span><span class=p>(</span><span class=n>colors</span><span class=p>[</span><span class=n>creat_random</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>6</span><span class=p>)]);</span>
+</span></span><span class=line><span class=cl>					<span class=c1>//把数学坐标转换为屏幕坐标再进行绘制
+</span></span></span><span class=line><span class=cl><span class=c1></span>					<span class=n>solidcircle</span><span class=p>(</span><span class=n>screen_x</span><span class=p>(</span><span class=n>x</span><span class=p>),</span> <span class=n>screen_y</span><span class=p>(</span><span class=n>y</span><span class=p>),</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>					<span class=c1>//需要注意的是，我并没有保存这些点，因为这些点不需要前一帧的坐标数据
+</span></span></span><span class=line><span class=cl><span class=c1></span>					<span class=c1>//只需要当前系数就可绘制出来，因此没 必要保存
+</span></span></span><span class=line><span class=cl><span class=c1></span>				<span class=p>}</span>
+</span></span><span class=line><span class=cl>			<span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>main</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=n>initgraph</span><span class=p>(</span><span class=n>xScreen</span><span class=p>,</span> <span class=n>yScreen</span><span class=p>);</span>  <span class=c1>//创建屏幕
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=n>BeginBatchDraw</span><span class=p>();</span>			  <span class=c1>//开始批量绘图
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=n>srand</span><span class=p>(</span><span class=n>time</span><span class=p>(</span><span class=mi>0</span><span class=p>));</span>				  <span class=c1>//初始化随机种子
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=n>creat_data</span><span class=p>();</span>				  <span class=c1>//调用函数产生20张图片
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=n>SetWorkingImage</span><span class=p>();</span>			  <span class=c1>//调用函数把工作图像恢复为窗口，没有添加参数默认为窗口
+</span></span></span><span class=line><span class=cl><span class=c1></span>								  <span class=c1>//因为接下是用窗口播放图片，因此要把绘图效果设置为窗口
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>	<span class=kt>bool</span> <span class=n>extend</span> <span class=o>=</span> <span class=nb>true</span><span class=p>,</span> <span class=n>shrink</span> <span class=o>=</span> <span class=nb>false</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>frame</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=o>!</span><span class=n>_kbhit</span><span class=p>();)</span>     <span class=c1>//退出条件为检测到按键信息
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=n>putimage</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>images</span><span class=p>[</span><span class=n>frame</span><span class=p>]);</span> <span class=c1>//播放第frame张图片
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=n>FlushBatchDraw</span><span class=p>();</span>				<span class=c1>//刷新批量绘图
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=n>Sleep</span><span class=p>(</span><span class=mi>20</span><span class=p>);</span>						<span class=c1>//延时20毫秒
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=n>cleardevice</span><span class=p>();</span>					<span class=c1>//清除屏幕，用来播放下一帧图片
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=c1>//注意 creat data 产生的只是爱心扩张的20张图片，并没有产生爱心收缩的图片
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=c1>//但是把扩张的图片倒着播放就产生的收缩的效果
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=c1>//所以下面这个 if else 语句就是决定图片是正常播放还是倒着播放
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=p>(</span><span class=n>extend</span><span class=p>)</span>  <span class=c1>//扩张时， ++frame，正常播放
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=n>frame</span> <span class=o>==</span> <span class=mi>19</span> <span class=o>?</span> <span class=p>(</span><span class=n>shrink</span> <span class=o>=</span> <span class=nb>true</span><span class=p>,</span> <span class=n>extend</span> <span class=o>=</span> <span class=nb>false</span><span class=p>)</span> <span class=o>:</span> <span class=o>++</span><span class=n>frame</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>		<span class=k>else</span>         <span class=c1>//收缩时， --frame，倒着播放
+</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=n>frame</span> <span class=o>==</span> <span class=mi>0</span> <span class=o>?</span> <span class=p>(</span><span class=n>shrink</span> <span class=o>=</span> <span class=nb>false</span><span class=p>,</span> <span class=n>extend</span> <span class=o>=</span> <span class=nb>true</span><span class=p>)</span> <span class=o>:</span> <span class=o>--</span><span class=n>frame</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=n>EndBatchDraw</span><span class=p>();</span> <span class=c1>//关闭批量绘图
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=n>closegraph</span><span class=p>();</span>	<span class=c1>//关闭绘图窗口
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=k>return</span> <span class=mi>0</span><span class=p>;</span>		<span class=c1>//结束程序
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/c++/>C++</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg><span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>Related content</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/2023/06/04/sfml-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/><div class=article-image><img src=/2023/06/04/sfml-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/index.e0cc58af1fe11fc0345e011e01b6a63c_hu206d7ec3fe337226cb6e2b4517c0a4d7_806089_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy alt="Featured image of post SFML 環境配置" data-hash="md5-4MxYrx/hH8A0XgEeAbamPA=="></div><div class=article-details><h2 class=article-title>SFML 環境配置</h2></div></a></article><article class=has-image><a href=/2023/06/03/sdl2-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/><div class=article-image><img src=/2023/06/03/sdl2-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/index.3b89232fb09fd6f2fe0a477739473230_hucd0183f2a5c8547c17b776fd724585de_1177230_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy alt="Featured image of post SDL2 環境配置" data-hash="md5-O4kjL7Cf1vL+Ckd3OUcyMA=="></div><div class=article-details><h2 class=article-title>SDL2 環境配置</h2></div></a></article><article class=has-image><a href=/2023/05/31/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/><div class=article-image><img src=/2023/05/31/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/index.52a37ec1d6303eb97370a79b0d839d94_hu2f194d0e484b347c767aea0ee1cd40f9_114610_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy alt="Featured image of post C++ 環境配置" data-hash="md5-UqN+wdYwPrlzcKebDYOdlA=="></div><div class=article-details><h2 class=article-title>C++ 環境配置</h2></div></a></article></div></div></aside><footer class=site-footer><section class=copyright>&copy;
+2023 Hello World 大冒險</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.16.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
