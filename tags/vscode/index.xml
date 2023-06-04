@@ -12,10 +12,10 @@ mingw-w64-x86_64-SDL2_ttf
 &amp;quot;-fdiagnostics-color=always&amp;quot;,
 &amp;quot;-g&amp;quot;,
 &amp;quot;${file}&amp;quot;,
-&amp;quot;-lmingw32&amp;quot;, //參數1
-&amp;quot;-mwindows&amp;quot;, //參數2
-&amp;quot;-lSDL2main&amp;quot;, //參數3
-&amp;quot;-lSDL2&amp;quot;, //參數4
+&amp;quot;-lmingw32&amp;quot;,
+&amp;quot;-mwindows&amp;quot;,
+&amp;quot;-lSDL2main&amp;quot;,
+&amp;quot;-lSDL2&amp;quot;,
 &amp;quot;-o&amp;quot;,
 &amp;quot;${fileDirname}\\${fileBasenameNoExtension}.exe&amp;quot;
 ],&lt;/code>&lt;/pre></description></item><item><title>Visual Studio Code 環境配置</title><link>https://huihsiang9292.github.io/2023/05/31/visual-studio-code-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Wed, 31 May 2023 01:56:21 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/05/31/visual-studio-code-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/2023/05/31/visual-studio-code-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/index.png" alt="Featured image of post Visual Studio Code 環境配置" />&lt;h1 id="設定">設定&lt;/h1>

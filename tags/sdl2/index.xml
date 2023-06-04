@@ -12,10 +12,10 @@ mingw-w64-x86_64-SDL2_ttf
 &amp;quot;-fdiagnostics-color=always&amp;quot;,
 &amp;quot;-g&amp;quot;,
 &amp;quot;${file}&amp;quot;,
-&amp;quot;-lmingw32&amp;quot;, //參數1
-&amp;quot;-mwindows&amp;quot;, //參數2
-&amp;quot;-lSDL2main&amp;quot;, //參數3
-&amp;quot;-lSDL2&amp;quot;, //參數4
+&amp;quot;-lmingw32&amp;quot;,
+&amp;quot;-mwindows&amp;quot;,
+&amp;quot;-lSDL2main&amp;quot;,
+&amp;quot;-lSDL2&amp;quot;,
 &amp;quot;-o&amp;quot;,
 &amp;quot;${fileDirname}\\${fileBasenameNoExtension}.exe&amp;quot;
 ],&lt;/code>&lt;/pre></description></item></channel></rss>

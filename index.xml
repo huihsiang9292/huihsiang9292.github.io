@@ -1,4 +1,111 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hello World 大冒險</title><link>https://huihsiang9292.github.io/</link><description>Recent content on Hello World 大冒險</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Sat, 03 Jun 2023 03:02:00 +0800</lastBuildDate><atom:link href="https://huihsiang9292.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>SDL2 環境配置</title><link>https://huihsiang9292.github.io/2023/06/03/sdl2-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Sat, 03 Jun 2023 03:02:00 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/06/03/sdl2-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/2023/06/03/sdl2-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/index.png" alt="Featured image of post SDL2 環境配置" />&lt;h1 id="下載-sdl2">下載 SDL2&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hello World 大冒險</title><link>https://huihsiang9292.github.io/</link><description>Recent content on Hello World 大冒險</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Sun, 04 Jun 2023 22:38:51 +0800</lastBuildDate><atom:link href="https://huihsiang9292.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>SFML 環境配置</title><link>https://huihsiang9292.github.io/2023/06/04/sfml-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Sun, 04 Jun 2023 22:38:51 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/06/04/sfml-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/index.png" alt="Featured image of post SFML 環境配置" />&lt;h1 id="下載-mingwsfmlhttpswwwsfml-devorgdownloadsfml251">下載 &lt;a class="link" href="https://www.sfml-dev.org/download/sfml/2.5.1/" target="_blank" rel="noopener"
+>MinGW、SFML&lt;/a>&lt;/h1>
+&lt;p>&lt;code> MinGW Builds 7.3.0 (64-bit)&lt;/code>、&lt;code>GCC 7.3.0 MinGW (SEH) - 64-bit&lt;/code> 的版本必須完全匹配&lt;/p>
+&lt;h1 id="配置環境變數">配置環境變數&lt;/h1>
+&lt;ol>
+&lt;li>解壓縮後，將 &lt;code>x86_64-7.3.0-release-posix-seh-rt_v5-rev0&lt;/code> 重新命名成 &lt;code>mingw64-7.3.0&lt;/code>&lt;/li>
+&lt;li>複製 &lt;code>mingw64-7.3.0&lt;/code>、&lt;code>SFML-2.5.1&lt;/code> 中 &lt;code>bin&lt;/code> 的路徑&lt;/li>
+&lt;li>設定 &amp;gt; 系統 &amp;gt; 系統資訊 &amp;gt; 進階系統設定 &amp;gt; 進階 &amp;gt; 環境變數 &amp;gt; Path&lt;/li>
+&lt;li>將複製的路徑新增至 &lt;code>Path&lt;/code> 中&lt;/li>
+&lt;/ol>
+&lt;p>例如 : &lt;code>C:\sfml\mingw64-7.3.0\bin&lt;/code>、&lt;code>C:\sfml\SFML-2.5.1\bin&lt;/code>&lt;/p>
+&lt;h1 id="範例程式碼">範例程式碼&lt;/h1>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-C++" data-lang="C++">&lt;span class="line">&lt;span class="cl"> &lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;SFML/Graphics.hpp&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sf&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">RenderWindow&lt;/span> &lt;span class="n">window&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sf&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">VideoMode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">200&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">200&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="s">&amp;#34;SFML works!&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sf&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">CircleShape&lt;/span> &lt;span class="n">shape&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">100.f&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">shape&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">setFillColor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sf&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Color&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Green&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">isOpen&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sf&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Event&lt;/span> &lt;span class="n">event&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pollEvent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">event&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">event&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">type&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">sf&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Event&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">Closed&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">close&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">clear&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">draw&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">display&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="配置-vscode">配置 VScode&lt;/h1>
+&lt;ol>
+&lt;li>將滑鼠移至 &lt;code>#include &amp;lt;SFML/Graphics.hpp&amp;gt;&lt;/code> 的紅色波浪上，點擊 &lt;code>快速修復&lt;/code>、&lt;code>編輯&amp;quot;includePath&amp;quot;設定&lt;/code>&lt;/li>
+&lt;li>將 &lt;code>編譯器路徑&lt;/code> 改為 &lt;code>C:/sfml/mingw64-7.3.0/bin/g++.exe&lt;/code>&lt;/li>
+&lt;li>在 &lt;code>包含路徑&lt;/code> 新增一行 &lt;code>C:\sfml\SFML-2.5.1\include&lt;/code>&lt;/li>
+&lt;li>編譯之後會報錯，在自動建立的 &lt;code>.vscode/tasks.json&lt;/code> 中增加&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;args&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;-fdiagnostics-color=always&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;-g&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;${file}&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;-lsfml-graphics&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;-lsfml-window&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;-lsfml-system&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;-o&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;${fileDirname}\\${fileBasenameNoExtension}.exe&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;-I&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;C:\\sfml\\SFML-2.5.1\\include&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;-L&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;C:\\sfml\\SFML-2.5.1\\lib&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>&lt;span class="err">,&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>SDL2 環境配置</title><link>https://huihsiang9292.github.io/2023/06/03/sdl2-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Sat, 03 Jun 2023 03:02:00 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/06/03/sdl2-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/2023/06/03/sdl2-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/index.png" alt="Featured image of post SDL2 環境配置" />&lt;h1 id="下載-sdl2">下載 SDL2&lt;/h1>
 &lt;pre>&lt;code>pacman -S mingw-w64-x86_64-SDL2
 mingw-w64-x86_64-SDL2_gfx
 mingw-w64-x86_64-SDL2_image
@@ -12,10 +119,10 @@ mingw-w64-x86_64-SDL2_ttf
 &amp;quot;-fdiagnostics-color=always&amp;quot;,
 &amp;quot;-g&amp;quot;,
 &amp;quot;${file}&amp;quot;,
-&amp;quot;-lmingw32&amp;quot;, //參數1
-&amp;quot;-mwindows&amp;quot;, //參數2
-&amp;quot;-lSDL2main&amp;quot;, //參數3
-&amp;quot;-lSDL2&amp;quot;, //參數4
+&amp;quot;-lmingw32&amp;quot;,
+&amp;quot;-mwindows&amp;quot;,
+&amp;quot;-lSDL2main&amp;quot;,
+&amp;quot;-lSDL2&amp;quot;,
 &amp;quot;-o&amp;quot;,
 &amp;quot;${fileDirname}\\${fileBasenameNoExtension}.exe&amp;quot;
 ],&lt;/code>&lt;/pre></description></item><item><title>Visual Studio Code 環境配置</title><link>https://huihsiang9292.github.io/2023/05/31/visual-studio-code-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Wed, 31 May 2023 01:56:21 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/05/31/visual-studio-code-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/2023/05/31/visual-studio-code-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/index.png" alt="Featured image of post Visual Studio Code 環境配置" />&lt;h1 id="設定">設定&lt;/h1>
@@ -63,10 +170,9 @@ mingw-w64-x86_64-SDL2_ttf
 >markdownlint&lt;/a>&lt;/p>
 &lt;h2 id="c-語言支援">C++ 語言支援&lt;/h2>
 &lt;p>&lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools" target="_blank" rel="noopener"
->C/C++&lt;/a>&lt;/p></description></item><item><title>C++ 環境配置</title><link>https://huihsiang9292.github.io/2023/05/31/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Wed, 31 May 2023 01:53:02 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/05/31/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/2023/05/31/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/index.png" alt="Featured image of post C++ 環境配置" />&lt;h1 id="安裝-msys2">安裝 MSYS2&lt;/h1>
-&lt;p>&lt;a class="link" href="https://www.msys2.org/" target="_blank" rel="noopener"
->下載連結&lt;/a>&lt;br>
-如果沒有要更改安裝位置的話，持續點擊下一步就好&lt;/p>
+>C/C++&lt;/a>&lt;/p></description></item><item><title>C++ 環境配置</title><link>https://huihsiang9292.github.io/2023/05/31/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Wed, 31 May 2023 01:53:02 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/05/31/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/2023/05/31/c-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/index.png" alt="Featured image of post C++ 環境配置" />&lt;h1 id="安裝-msys2httpswwwmsys2org">安裝 &lt;a class="link" href="https://www.msys2.org/" target="_blank" rel="noopener"
+>MSYS2&lt;/a>&lt;/h1>
+&lt;p>如果沒有要更改安裝位置的話，持續點擊下一步就好&lt;/p>
 &lt;h1 id="更新">更新&lt;/h1>
 &lt;p>打開 MSYS2&lt;/p>
 &lt;pre>&lt;code>pacman -Syu
@@ -88,7 +194,7 @@ mingw-w64-x86_64-SDL2_ttf
 &lt;pre>&lt;code>gcc --version
 g++ --version
 gdb --version
-&lt;/code>&lt;/pre></description></item><item><title>hugo 環境配置</title><link>https://huihsiang9292.github.io/2023/05/15/hugo-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Mon, 15 May 2023 05:00:38 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/05/15/hugo-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/2023/05/15/hugo-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/index.png" alt="Featured image of post hugo 環境配置" />&lt;h1 id="配置環境">配置環境&lt;/h1>
+&lt;/code>&lt;/pre></description></item><item><title>Hugo 環境配置</title><link>https://huihsiang9292.github.io/2023/05/15/hugo-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</link><pubDate>Mon, 15 May 2023 05:00:38 +0800</pubDate><guid>https://huihsiang9292.github.io/2023/05/15/hugo-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/</guid><description>&lt;img src="https://huihsiang9292.github.io/2023/05/15/hugo-%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE/index.png" alt="Featured image of post Hugo 環境配置" />&lt;h1 id="配置環境">配置環境&lt;/h1>
 &lt;h2 id="ubuntu">Ubuntu&lt;/h2>
 &lt;pre>&lt;code>sudo apt update &amp;amp;&amp;amp; sudo apt upgrade -y
 &lt;/code>&lt;/pre>
