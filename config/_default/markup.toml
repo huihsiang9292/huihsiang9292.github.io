@@ -1,11 +1,11 @@
 # Markdown renderer configuration
 [goldmark.renderer]
-unsafe = true
+unsafe = false
 
 [tableOfContents]
-endLevel = 4
+endLevel = 6
 ordered = true
-startLevel = 2
+startLevel = 1
 
 [highlight]
 noClasses = false
