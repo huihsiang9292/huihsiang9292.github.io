@@ -5,7 +5,7 @@ unsafe = false
 [tableOfContents]
 endLevel = 6
 ordered = true
-startLevel = 1
+startLevel = 2
 
 [highlight]
 noClasses = false
