@@ -8,7 +8,7 @@ categories:
 1.
 
 ```
-    public class main {
+    public class Main {
         static public void main(String[] args) {
             System.out.println("Hello World !");
         }
@@ -18,7 +18,7 @@ categories:
 2.
 
 ```
-    public class main {
+    public class Main {
         static public void main(String[] args) {
             System.out.println("What your name ?");
             java.util.Scanner sc = new java.util.Scanner(System.in);
