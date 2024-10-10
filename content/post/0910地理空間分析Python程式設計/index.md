@@ -2,6 +2,7 @@
 title: Week 1
 date: 2024-09-10
 categories:
+  - Python
   - 地理空間分析Python程式設計
 ---
 
