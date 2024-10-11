@@ -38,11 +38,15 @@ archinstall
 - xorg-xinit
 - xorg-xrandr
 - i3-wm
+- rofi
+- ranger
 - polybar
+- picom
 - feh
 - wezterm
 - ttf-nerd-fonts-symbols-mono
 - neovim
+- firefox
 
 ## 軟體配置
 
@@ -92,12 +96,27 @@ startx
 xrandr | grep "connected"
 ```
 
+### rofi
+
+開啟 i3-wm 配置文件、修改`dmenu`為`rofi -show drun`
+
+```bash
+bindsym $mod+d exec --no-startup-id rofi -show drun
+```
+
+### ranger
+
+複製預設配置文件
+
+```bash
+ranger --copy-config=all
+```
+
 ### polybar
 
 複製預設配置文件
 
 ```bash
-mkdir ~/.config
 mkdir ~/.config/polybar
 sudo cp /etc/polybar/config.ini ~/.config/polybar/config.ini
 ```
@@ -140,5 +159,44 @@ bar {
     i3bar_command i3bar
 }
 
-exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id ~/.config/polybar/launch.sh &
+```
+
+### picom
+
+複製預設配置文件
+
+```bash
+mkdir ~/.config/picom
+cp /etc/xdg/picom.conf ~/.config/picom/picom.conf
+```
+
+開啟 i3-wm 配置文件、新增自啟 picom
+
+```bash
+nvim ~/.config/i3/config
+
+exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf &
+```
+
+### feh
+
+設定桌布
+
+```bash
+feh --bg-fill /path/to/image.file
+```
+
+設定隨機桌布，資料夾內只能有圖檔
+
+```bash
+feh --bg-fill --randomize /path/to/image/folder/*
+```
+
+開啟 i3-wm 配置文件、新增自啟 feh
+
+```bash
+nvim ~/.config/i3/config
+
+exec_always ~/.fehbg &
 ```
