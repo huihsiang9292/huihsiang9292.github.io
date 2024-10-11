@@ -1,16 +1,17 @@
 ---
 title: Arch Linux
 date: 2024-10-11
+lastmod: 2024-10-11
 categories:
+  - Linux
   - Arch
-  - i3-WM
 ---
 
 # 系統
 
 ## Arch Linux
 
-驗證啟動模式是否為 UEFI，若命令結果為 64、32，表示是以各自位元的 UEFI 啟動
+驗證啟動模式是否為 UEFI，若命令結果為 64、32，表示是以 64、32 位元的 UEFI 啟動
 
 ```bash
 cat /sys/firmware/efi/fw_platform_size
@@ -25,6 +26,7 @@ ping google.com
 輔助安裝腳本
 
 ```bash
+# archinstall --config <url>
 archinstall
 ```
 
@@ -39,16 +41,17 @@ archinstall
 - polybar
 - feh
 - wezterm
-- ttf-nerd-fonts-symbol-mono
+- ttf-nerd-fonts-symbols-mono
 - neovim
 
 ## 軟體配置
 
 ### openssh
 
-啟動 ssh server
+開機自啟、啟動 ssh server
 
 ```bash
+sudo systemctl enable sshd
 sudo systemctl start sshd
 ```
 
@@ -82,38 +85,33 @@ sudo nvim ~/.xinitrc
 exec i3
 ```
 
+啟動 X11、查找螢幕名稱
+
+```bash
+startx
+xrandr | grep "connected"
+```
+
 ### polybar
 
 複製預設配置文件
 
 ```bash
+mkdir ~/.config
 mkdir ~/.config/polybar
 sudo cp /etc/polybar/config.ini ~/.config/polybar/config.ini
 ```
 
-找出自己的螢幕名稱並修改`fallback-value`
+修改`fallback-value`為查找到的螢幕名稱
 
 ```bash
-xrandr | grep "connected"
-nvim ~/.config/polybar/config.ini
+sudo nvim ~/.config/polybar/config.ini
 
 [bar/example]
 monitor = ${env:MONITOR:fallback-value}
 ```
 
-開啟 i3-wm 配置文件、刪除預設 bar 、新增自啟 polybar
-
-```bash
-nvim ~/.config/i3/config
-
-bar {
-    i3bar_command i3bar
-}
-
-exec_always --no-startup-id ~/.config/polybar/launch.sh
-```
-
-建立啟動文件並給予執行權限，修改 `bar` 為 `[bar/example]` 中的名稱
+建立啟動文件並給予執行權限，修改`bar`為`[bar/example]`中的名稱
 
 ```bash
 touch ~/.config/polybar/launch.sh
@@ -131,4 +129,16 @@ polybar bar 2>&1 | tee -a /tmp/polybar1.log & disown
 echo "Bars launched..."
 
 chmod +x ~/.config/polybar/launch.sh
+```
+
+開啟 i3-wm 配置文件、刪除預設 bar 、新增自啟 polybar
+
+```bash
+nvim ~/.config/i3/config
+
+bar {
+    i3bar_command i3bar
+}
+
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 ```

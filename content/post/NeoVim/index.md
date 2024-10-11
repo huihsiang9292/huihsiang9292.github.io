@@ -1,7 +1,9 @@
 ---
 title: NeoVim
 date: 2024-10-11
+lastmod: 2024-10-11
 categories:
+  - Linux
   - NeoVim
 ---
 

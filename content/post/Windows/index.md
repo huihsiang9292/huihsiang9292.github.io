@@ -1,5 +1,7 @@
 ---
-title: Windows 指令
+title: Windows
+date: 2024-10-11
+lastmod: 2024-10-11
 categories:
   - Windows
 ---
