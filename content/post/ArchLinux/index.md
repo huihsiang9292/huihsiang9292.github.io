@@ -33,6 +33,7 @@ archinstall
 ## 軟體清單
 
 - openssh
+- tailscale
 - greetd-tuigreet
 - xorg-server
 - xorg-xinit
@@ -43,10 +44,13 @@ archinstall
 - polybar
 - picom
 - feh
+- polkit-kde-agent
 - wezterm
-- ttf-nerd-fonts-symbols-mono
 - neovim
 - firefox
+- timeshift
+- ttf-cascadia-code
+- adobe-source-han-serif-tw-fonts
 
 ## 軟體配置
 
@@ -59,19 +63,27 @@ sudo systemctl enable sshd
 sudo systemctl start sshd
 ```
 
+### tailscale
+
+開機自啟 tailscale、連結到帳戶
+
+```bash
+sudo systemctl enable --now tailscaled
+sudo tailscale up
+tailscale ip -4
+```
+
 ### greetd-tuigreet
 
-開啟配置文件
+開啟配置文件、自啟 i3-wm、邊框顏色為亮黃色、輸入顏色為亮紅色、重啟
 
 ```bash
 sudo nvim /etc/greetd/config.toml
-```
 
-配置 tuigreet、自啟 i3-wm、邊框顏色為亮黃色、輸入顏色為亮紅色
-
-```bash
 [default_session]
 command = "tuigreet --cmd startx --remember --theme 'border=LightYellow;input=LightRed'"
+
+sudo systemctl restart greetd
 ```
 
 ### xorg-xinit
@@ -93,7 +105,7 @@ exec i3
 
 ```bash
 startx
-xrandr | grep "connected"
+xrandr | grep connected
 ```
 
 ### rofi
@@ -101,6 +113,8 @@ xrandr | grep "connected"
 開啟 i3-wm 配置文件、修改`dmenu`為`rofi -show drun`
 
 ```bash
+nvim ~/.config/i3/config
+
 bindsym $mod+d exec --no-startup-id rofi -show drun
 ```
 
@@ -144,7 +158,7 @@ polybar-msg cmd quit
 # killall -q polybar
 # Launch bar1 and bar2
 echo "---" | tee -a /tmp/polybar.log
-polybar bar 2>&1 | tee -a /tmp/polybar1.log & disown
+polybar bar 2>&1 | tee -a /tmp/polybar.log & disown
 echo "Bars launched..."
 
 chmod +x ~/.config/polybar/launch.sh
@@ -199,4 +213,14 @@ feh --bg-fill --randomize /path/to/image/folder/*
 nvim ~/.config/i3/config
 
 exec_always ~/.fehbg &
+```
+
+## 美化
+
+### i3-WM
+
+配置文件
+
+```bash
+
 ```
