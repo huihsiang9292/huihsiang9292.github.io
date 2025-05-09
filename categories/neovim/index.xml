@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>NeoVim on</title><link>https://huihsiang2392.github.io/categories/neovim/</link><description>Recent content in NeoVim on</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 11 Oct 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://huihsiang2392.github.io/categories/neovim/index.xml" rel="self" type="application/rss+xml"/><item><title>NeoVim</title><link>https://huihsiang2392.github.io/p/2024/10/11/neovim/</link><pubDate>Fri, 11 Oct 2024 00:00:00 +0000</pubDate><guid>https://huihsiang2392.github.io/p/2024/10/11/neovim/</guid><description>&lt;h1 id="移動">移動
+&lt;/h1>&lt;ul>
+&lt;li>&lt;code>gg&lt;/code> 檔案頂部&lt;/li>
+&lt;li>&lt;code>G&lt;/code> 檔案底部&lt;/li>
+&lt;li>&lt;code>0&lt;/code> 行首&lt;/li>
+&lt;li>&lt;code>$&lt;/code> 行尾&lt;/li>
+&lt;/ul>
+&lt;h1 id="複製">複製
+&lt;/h1>&lt;ul>
+&lt;li>&lt;code>yy&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h1 id="貼上">貼上
+&lt;/h1>&lt;ul>
+&lt;li>&lt;code>p&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h1 id="多行編輯">多行編輯
+&lt;/h1>&lt;ul>
+&lt;li>&lt;code>ctrl + v&lt;/code> &amp;gt; 選取範圍 &amp;gt; &lt;code>shift + i&lt;/code> &amp;gt; 編輯 &amp;gt; &lt;code>esc&lt;/code>&lt;/li>
+&lt;/ul></description></item></channel></rss>

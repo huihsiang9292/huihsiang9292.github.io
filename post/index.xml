@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on</title><link>https://huihsiang2392.github.io/post/</link><description>Recent content in Posts on</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 11 Oct 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://huihsiang2392.github.io/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Arch Linux</title><link>https://huihsiang2392.github.io/p/2024/10/11/arch-linux/</link><pubDate>Fri, 11 Oct 2024 00:00:00 +0000</pubDate><guid>https://huihsiang2392.github.io/p/2024/10/11/arch-linux/</guid><description>&lt;h1 id="系統">系統
+&lt;/h1>&lt;h2 id="arch-linux">Arch Linux
+&lt;/h2>&lt;p>驗證啟動模式是否為 UEFI，若命令結果為 64、32，表示是以 64、32 位元的 UEFI 啟動&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat /sys/firmware/efi/fw_platform_size
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>確認是否有網路&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ping google.com
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>輔助安裝腳本&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># archinstall --config &amp;lt;url&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">archinstall
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="軟體清單">軟體清單
+&lt;/h2>&lt;ul>
+&lt;li>openssh&lt;/li>
+&lt;li>tailscale&lt;/li>
+&lt;li>greetd-tuigreet&lt;/li>
+&lt;li>xorg-server&lt;/li>
+&lt;li>xorg-xinit&lt;/li>
+&lt;li>xorg-xrandr&lt;/li>
+&lt;li>i3-wm&lt;/li>
+&lt;li>rofi&lt;/li>
+&lt;li>ranger&lt;/li>
+&lt;li>polybar&lt;/li>
+&lt;li>picom&lt;/li>
+&lt;li>feh&lt;/li>
+&lt;li>polkit-kde-agent&lt;/li>
+&lt;li>wezterm&lt;/li>
+&lt;li>neovim&lt;/li>
+&lt;li>firefox&lt;/li>
+&lt;li>timeshift&lt;/li>
+&lt;li>ttf-cascadia-code&lt;/li>
+&lt;li>adobe-source-han-serif-tw-fonts&lt;/li>
+&lt;/ul>
+&lt;h2 id="軟體配置">軟體配置
+&lt;/h2>&lt;h3 id="openssh">openssh
+&lt;/h3>&lt;p>開機自啟、啟動 ssh server&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl &lt;span class="nb">enable&lt;/span> sshd
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo systemctl start sshd
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="tailscale">tailscale
+&lt;/h3>&lt;p>開機自啟 tailscale、連結到帳戶&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl &lt;span class="nb">enable&lt;/span> --now tailscaled
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo tailscale up
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tailscale ip -4
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="greetd-tuigreet">greetd-tuigreet
+&lt;/h3>&lt;p>開啟配置文件、自啟 i3-wm、邊框顏色為亮黃色、輸入顏色為亮紅色、重啟&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo nvim /etc/greetd/config.toml
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>default_session&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">command&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;tuigreet --cmd startx --remember --theme &amp;#39;border=LightYellow;input=LightRed&amp;#39;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo systemctl restart greetd
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="xorg-xinit">xorg-xinit
+&lt;/h3>&lt;p>複製預設配置文件並開啟&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo cp /etc/X11/xinit/xinitrc ~/.xinitrc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo nvim ~/.xinitrc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>刪除底部預設自啟項並新增 i3-wm&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">exec&lt;/span> i3
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>啟動 X11、查找螢幕名稱&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">startx
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">xrandr &lt;span class="p">|&lt;/span> grep connected
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="rofi">rofi
+&lt;/h3>&lt;p>開啟 i3-wm 配置文件、修改&lt;code>dmenu&lt;/code>為&lt;code>rofi -show drun&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nvim ~/.config/i3/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bindsym &lt;span class="nv">$mod&lt;/span>+d &lt;span class="nb">exec&lt;/span> --no-startup-id rofi -show drun
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="ranger">ranger
+&lt;/h3>&lt;p>複製預設配置文件&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ranger --copy-config&lt;span class="o">=&lt;/span>all
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="polybar">polybar
+&lt;/h3>&lt;p>複製預設配置文件&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir ~/.config/polybar
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo cp /etc/polybar/config.ini ~/.config/polybar/config.ini
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>修改&lt;code>fallback-value&lt;/code>為查找到的螢幕名稱&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo nvim ~/.config/polybar/config.ini
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>bar/example&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">monitor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">env&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">MONITOR&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">fallback&lt;/span>&lt;span class="p">-value&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>建立啟動文件並給予執行權限，修改&lt;code>bar&lt;/code>為&lt;code>[bar/example]&lt;/code>中的名稱&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">touch ~/.config/polybar/launch.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nvim ~/.config/polybar/launch.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#!/usr/bin/env bash&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Terminate already running bar instances&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># If all your bars have ipc enabled, you can use&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">polybar-msg cmd quit
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Otherwise you can use the nuclear option:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># killall -q polybar&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Launch bar1 and bar2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;---&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> tee -a /tmp/polybar.log
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">polybar bar 2&amp;gt;&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="p">|&lt;/span> tee -a /tmp/polybar.log &lt;span class="p">&amp;amp;&lt;/span> &lt;span class="nb">disown&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Bars launched...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod +x ~/.config/polybar/launch.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>開啟 i3-wm 配置文件、刪除預設 bar 、新增自啟 polybar&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nvim ~/.config/i3/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bar &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> i3bar_command i3bar
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">exec_always --no-startup-id ~/.config/polybar/launch.sh &lt;span class="p">&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="picom">picom
+&lt;/h3>&lt;p>複製預設配置文件&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir ~/.config/picom
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /etc/xdg/picom.conf ~/.config/picom/picom.conf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>開啟 i3-wm 配置文件、新增自啟 picom&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nvim ~/.config/i3/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf &lt;span class="p">&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="feh">feh
+&lt;/h3>&lt;p>設定桌布&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">feh --bg-fill /path/to/image.file
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>設定隨機桌布，資料夾內只能有圖檔&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">feh --bg-fill --randomize /path/to/image/folder/*
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>開啟 i3-wm 配置文件、新增自啟 feh&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nvim ~/.config/i3/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">exec_always ~/.fehbg &lt;span class="p">&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="美化">美化
+&lt;/h2>&lt;h3 id="i3-wm">i3-WM
+&lt;/h3>&lt;p>配置文件&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>NeoVim</title><link>https://huihsiang2392.github.io/p/2024/10/11/neovim/</link><pubDate>Fri, 11 Oct 2024 00:00:00 +0000</pubDate><guid>https://huihsiang2392.github.io/p/2024/10/11/neovim/</guid><description>&lt;h1 id="移動">移動
+&lt;/h1>&lt;ul>
+&lt;li>&lt;code>gg&lt;/code> 檔案頂部&lt;/li>
+&lt;li>&lt;code>G&lt;/code> 檔案底部&lt;/li>
+&lt;li>&lt;code>0&lt;/code> 行首&lt;/li>
+&lt;li>&lt;code>$&lt;/code> 行尾&lt;/li>
+&lt;/ul>
+&lt;h1 id="複製">複製
+&lt;/h1>&lt;ul>
+&lt;li>&lt;code>yy&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h1 id="貼上">貼上
+&lt;/h1>&lt;ul>
+&lt;li>&lt;code>p&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h1 id="多行編輯">多行編輯
+&lt;/h1>&lt;ul>
+&lt;li>&lt;code>ctrl + v&lt;/code> &amp;gt; 選取範圍 &amp;gt; &lt;code>shift + i&lt;/code> &amp;gt; 編輯 &amp;gt; &lt;code>esc&lt;/code>&lt;/li>
+&lt;/ul></description></item><item><title>Windows</title><link>https://huihsiang2392.github.io/p/2024/10/11/windows/</link><pubDate>Fri, 11 Oct 2024 00:00:00 +0000</pubDate><guid>https://huihsiang2392.github.io/p/2024/10/11/windows/</guid><description>&lt;h2 id="更改個人資料夾路徑為英文">更改個人資料夾路徑為英文
+&lt;/h2>&lt;ol>
+&lt;li>&lt;code>Win + R&lt;/code>&lt;/li>
+&lt;li>輸入&lt;code>regedit&lt;/code>&lt;/li>
+&lt;li>路徑&lt;code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders&lt;/code>&lt;/li>
+&lt;/ol></description></item><item><title>Rocky Linux</title><link>https://huihsiang2392.github.io/p/2024/09/11/rocky-linux/</link><pubDate>Wed, 11 Sep 2024 00:00:00 +0000</pubDate><guid>https://huihsiang2392.github.io/p/2024/09/11/rocky-linux/</guid><description/></item><item><title>Week 1</title><link>https://huihsiang2392.github.io/p/2024/09/11/week-1/</link><pubDate>Wed, 11 Sep 2024 00:00:00 +0000</pubDate><guid>https://huihsiang2392.github.io/p/2024/09/11/week-1/</guid><description/></item><item><title>Week 1</title><link>https://huihsiang2392.github.io/p/2024/09/10/week-1/</link><pubDate>Tue, 10 Sep 2024 00:00:00 +0000</pubDate><guid>https://huihsiang2392.github.io/p/2024/09/10/week-1/</guid><description>&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="http://gis519.logyuan.idv.tw/courses/course-v1:Pccu_Geography&amp;#43;D98200&amp;#43;202409/progress" target="_blank" rel="noopener"
+>課程平台&lt;/a>
+&lt;code>B2402985@ulive.pccu.edu.tw&lt;/code> &lt;code>1234567890&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="http://140.137.37.124/hub/login" target="_blank" rel="noopener"
+>Jupyter Hub&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://learngitbranching.js.org/" target="_blank" rel="noopener"
+>Git 互動教學&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul></description></item></channel></rss>

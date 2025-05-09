@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Windows on</title><link>https://huihsiang2392.github.io/categories/windows/</link><description>Recent content in Windows on</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 11 Oct 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://huihsiang2392.github.io/categories/windows/index.xml" rel="self" type="application/rss+xml"/><item><title>Windows</title><link>https://huihsiang2392.github.io/p/2024/10/11/windows/</link><pubDate>Fri, 11 Oct 2024 00:00:00 +0000</pubDate><guid>https://huihsiang2392.github.io/p/2024/10/11/windows/</guid><description>&lt;h2 id="更改個人資料夾路徑為英文">更改個人資料夾路徑為英文
+&lt;/h2>&lt;ol>
+&lt;li>&lt;code>Win + R&lt;/code>&lt;/li>
+&lt;li>輸入&lt;code>regedit&lt;/code>&lt;/li>
+&lt;li>路徑&lt;code>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders&lt;/code>&lt;/li>
+&lt;/ol></description></item></channel></rss>
