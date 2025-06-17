@@ -23,7 +23,7 @@ src = "img/avatar.png"
 
 [article]
 math = true
-readingTime = true
+readingTime = false
 
 [article.license]
 enabled = true
