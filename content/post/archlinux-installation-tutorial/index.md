@@ -1,5 +1,5 @@
 ---
-title: Arch Linux
+title: Arch Linux 安裝教學
 date: 2024-10-11
 lastmod: 2024-10-11
 categories:

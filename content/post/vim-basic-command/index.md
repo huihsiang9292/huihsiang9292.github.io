@@ -1,10 +1,10 @@
 ---
-title: NeoVim
+title: Vim 基本操作指令
 date: 2024-10-11
 lastmod: 2024-10-11
 categories:
   - Linux
-  - NeoVim
+  - Vim
 ---
 
 # 移動

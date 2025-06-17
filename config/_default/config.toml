@@ -1,5 +1,5 @@
 # Change baseurl before deploy
-baseurl = "https://huihsiang2392.github.io/"
+baseurl = "https://huihsiang9292.github.io/"
 languageCode = "zh-tw"
 [pagination]
   pagerSize = 10
