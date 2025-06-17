@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Discord on</title><link>https://huihsiang9292.github.io/categories/discord/</link><description>Recent content in Discord on</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 17 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://huihsiang9292.github.io/categories/discord/index.xml" rel="self" type="application/rss+xml"/><item><title>自動更新 Ubuntu 並使用 Discord 通知</title><link>https://huihsiang9292.github.io/p/2025/06/17/%E8%87%AA%E5%8B%95%E6%9B%B4%E6%96%B0-ubuntu-%E4%B8%A6%E4%BD%BF%E7%94%A8-discord-%E9%80%9A%E7%9F%A5/</link><pubDate>Tue, 17 Jun 2025 00:00:00 +0000</pubDate><guid>https://huihsiang9292.github.io/p/2025/06/17/%E8%87%AA%E5%8B%95%E6%9B%B4%E6%96%B0-ubuntu-%E4%B8%A6%E4%BD%BF%E7%94%A8-discord-%E9%80%9A%E7%9F%A5/</guid><description>&lt;h1 id="前言">前言
+&lt;/h1>&lt;p>在日常的 Ubuntu Server 維運中，保持套件更新是確保安全與穩定的基本工作。不過，頻繁手動登入更新麻煩又容易遺漏。&lt;/p>
+&lt;p>這篇教學將示範如何使用 Shell 腳本自動執行更新，並將執行結果透過 Discord Webhook 即時推播到你指定的頻道。&lt;/p>
+&lt;h1 id="discord-webhook">Discord Webhook
+&lt;/h1>&lt;ol>
+&lt;li>新增 Discord 伺服器&lt;/li>
+&lt;li>進入伺服器設定，並在左側選單中點選 &lt;code>整合&lt;/code>&lt;/li>
+&lt;li>點選 &lt;code>Webhook&lt;/code> 並新增&lt;/li>
+&lt;li>命名為 &lt;code>auto-update-bot&lt;/code>（自訂名稱）&lt;/li>
+&lt;li>複製產生的 &lt;code>Webhook URL&lt;/code>&lt;/li>
+&lt;li>貼到腳本中的 &lt;code>DISCORD_WEBHOOK_URL&lt;/code> 欄位&lt;/li>
+&lt;/ol>
+&lt;h1 id="shell-腳本">Shell 腳本
+&lt;/h1>&lt;h2 id="概覽">概覽
+&lt;/h2>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>功能&lt;/th>
+&lt;th>說明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>自動更新套件&lt;/td>
+&lt;td>執行 &lt;code>apt update &amp;amp;&amp;amp; upgrade&lt;/code> 並清除緩存&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>日誌記錄&lt;/td>
+&lt;td>輸出更新紀錄到 &lt;code>/var/log/auto-update.log&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Discord 通知&lt;/td>
+&lt;td>傳送通知訊息至 Discord 頻道&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>避免重複執行&lt;/td>
+&lt;td>每次只執行一次更新，避免重複更新&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>判斷是否需要重啟&lt;/td>
+&lt;td>根據 &lt;code>/var/run/reboot-required&lt;/code> 自動通知&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="內容">內容
+&lt;/h2>&lt;p>路徑：&lt;code>/usr/local/bin/auto-update.sh&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># === 設定 ===&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LOG_FILE&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/var/log/auto-update.log&amp;#34;&lt;/span> &lt;span class="c1"># 記錄更新過程的日誌檔案路徑&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DISCORD_WEBHOOK_URL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span> &lt;span class="c1"># Discord Webhook URL，請替換成你自己的&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># === Discord 通知函式 ===&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 這個函式會將訊息發送到指定的 Discord webhook&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">function&lt;/span> notify_discord&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">local&lt;/span> &lt;span class="nv">message&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="c1"># 取得要發送的訊息內容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> curl -s -H &lt;span class="s2">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span class="se">\ &lt;/span> &lt;span class="c1"># 設定 HTTP 標頭為 JSON&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -X POST &lt;span class="se">\ &lt;/span> &lt;span class="c1"># 使用 POST 方法&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -d &lt;span class="s2">&amp;#34;{\&amp;#34;content\&amp;#34;: \&amp;#34;&lt;/span>&lt;span class="nv">$message&lt;/span>&lt;span class="s2">\&amp;#34;}&amp;#34;&lt;/span> &lt;span class="se">\ &lt;/span> &lt;span class="c1"># 將訊息內容包裝成 JSON 格式&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$DISCORD_WEBHOOK_URL&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &amp;gt; /dev/null &lt;span class="c1"># 發送到 Discord，並忽略輸出&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># === 開始更新 ===&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 在日誌中記錄開始訊息，並通知 Discord&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;[&lt;/span>&lt;span class="k">$(&lt;/span>date&lt;span class="k">)&lt;/span>&lt;span class="s2">] 🚀 開始自動更新&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> tee -a &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$LOG_FILE&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">notify_discord &lt;span class="s2">&amp;#34;🚀 [&lt;/span>&lt;span class="k">$(&lt;/span>hostname&lt;span class="k">)&lt;/span>&lt;span class="s2">] 開始自動更新 Ubuntu 套件&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># === 套件更新流程 ===&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 執行 apt 指令進行系統套件更新，並將所有輸出寫入日誌檔案&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> apt update &lt;span class="c1"># 取得最新的套件清單&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> apt upgrade -y &lt;span class="c1"># 自動安裝所有可升級的套件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> apt autoremove -y &lt;span class="c1"># 移除不再需要的套件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> apt clean &lt;span class="c1"># 清除下載的套件快取&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span> &amp;gt;&amp;gt; &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$LOG_FILE&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> 2&amp;gt;&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="c1"># 將標準輸出與錯誤輸出都寫入日誌&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># === 是否需要重啟 ===&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 檢查 /var/run/reboot-required 檔案是否存在，判斷系統是否需要重啟&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> -f /var/run/reboot-required &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;[&lt;/span>&lt;span class="k">$(&lt;/span>date&lt;span class="k">)&lt;/span>&lt;span class="s2">] ⚠️ 系統需要重新啟動&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> tee -a &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$LOG_FILE&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> notify_discord &lt;span class="s2">&amp;#34;⚠️ [&lt;/span>&lt;span class="k">$(&lt;/span>hostname&lt;span class="k">)&lt;/span>&lt;span class="s2">] 更新完成，但系統需要重開機&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;[&lt;/span>&lt;span class="k">$(&lt;/span>date&lt;span class="k">)&lt;/span>&lt;span class="s2">] ✅ 不需重啟。&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> tee -a &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$LOG_FILE&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> notify_discord &lt;span class="s2">&amp;#34;✅ [&lt;/span>&lt;span class="k">$(&lt;/span>hostname&lt;span class="k">)&lt;/span>&lt;span class="s2">] 更新完成，不需重啟&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">fi&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># === 完成通知 ===&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;[&lt;/span>&lt;span class="k">$(&lt;/span>date&lt;span class="k">)&lt;/span>&lt;span class="s2">] 🏁 更新完成&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> tee -a &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$LOG_FILE&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">notify_discord &lt;span class="s2">&amp;#34;🏁 [&lt;/span>&lt;span class="k">$(&lt;/span>hostname&lt;span class="k">)&lt;/span>&lt;span class="s2">] 自動更新流程完成&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="給予執行權限">給予執行權限
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo chmod +x /usr/local/bin/auto-update.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="開機自動執行">開機自動執行
+&lt;/h2>&lt;p>建立 service：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemd Service：/etc/systemd/system/auto-update.service
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>內容如下:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>Unit&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Description&lt;/span>&lt;span class="o">=&lt;/span>Ubuntu 開機自動更新 &lt;span class="c1"># 服務描述，顯示於 systemctl status&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">After&lt;/span>&lt;span class="o">=&lt;/span>network-online.target &lt;span class="c1"># 等待網路連線完成後再啟動本服務&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Wants&lt;/span>&lt;span class="o">=&lt;/span>network-online.target &lt;span class="c1"># 本服務需要網路連線&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>Service&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Type&lt;/span>&lt;span class="o">=&lt;/span>oneshot &lt;span class="c1"># 只執行一次，執行完畢即結束&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ExecStartPre&lt;/span>&lt;span class="o">=&lt;/span>/bin/sleep &lt;span class="m">30&lt;/span> &lt;span class="c1"># 在執行主程式前先暫停 30 秒，確保網路穩定&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/bin/auto-update.sh &lt;span class="c1"># 執行自動更新腳本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">StandardOutput&lt;/span>&lt;span class="o">=&lt;/span>journal &lt;span class="c1"># 將標準輸出寫入 systemd journal&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">StandardError&lt;/span>&lt;span class="o">=&lt;/span>journal &lt;span class="c1"># 將錯誤輸出寫入 systemd journal&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">RemainAfterExit&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span> &lt;span class="c1"># 執行完畢後仍保持為 active 狀態&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>Install&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">WantedBy&lt;/span>&lt;span class="o">=&lt;/span>multi-user.target &lt;span class="c1"># 在多使用者模式下啟動（一般開機流程會進入此&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>啟用服務&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 重新載入 systemd 的服務設定檔，讓 systemd 讀取最新的 .service 檔案&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo systemctl daemon-reload
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 啟用 auto-update.service，讓它在每次開機時自動執行&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo systemctl &lt;span class="nb">enable&lt;/span> auto-update.service
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>下次開機就會自動執行一次。你也可以手動觸發：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl start auto-update.service
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

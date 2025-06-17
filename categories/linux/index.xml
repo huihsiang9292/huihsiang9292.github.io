@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on</title><link>https://huihsiang9292.github.io/categories/linux/</link><description>Recent content in Linux on</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 17 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://huihsiang9292.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Timeshift 教學</title><link>https://huihsiang9292.github.io/p/2025/06/17/timeshift-%E6%95%99%E5%AD%B8/</link><pubDate>Tue, 17 Jun 2025 00:00:00 +0000</pubDate><guid>https://huihsiang9292.github.io/p/2025/06/17/timeshift-%E6%95%99%E5%AD%B8/</guid><description>&lt;p>本教學以 CLI 操作為主，適用於無 GUI 的 Server 環境。適合想定期快照整個系統、快速還原崩潰環境的你。&lt;/p>
+&lt;h1 id="為什麼選擇-timeshift">為什麼選擇 Timeshift？
+&lt;/h1>&lt;ol>
+&lt;li>快速備份整個作業系統（通常是 / 根目錄）&lt;/li>
+&lt;li>自動排程快照，定期保留歷史版本&lt;/li>
+&lt;li>發生錯誤時快速還原，不需重裝系統&lt;/li>
+&lt;/ol>
+&lt;h1 id="安裝">安裝
+&lt;/h1>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt install timeshift -y
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="模式">模式
+&lt;/h1>&lt;p>使用 &lt;code>df -T /&lt;/code> 可查看你的根分割區是否為 btrfs，若不是，請使用 rsync 模式。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>模式&lt;/th>
+&lt;th>適用&lt;/th>
+&lt;th>說明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>rsync&lt;/td>
+&lt;td>大多數人&lt;/td>
+&lt;td>利用檔案層級備份，可用在任何檔案系統&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>btrfs&lt;/td>
+&lt;td>有使用 Btrfs 分割區的人&lt;/td>
+&lt;td>使用 Btrfs 原生 snapshot，更快更節省空間&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h1 id="備份命令">備份命令
+&lt;/h1>&lt;h2 id="手動快照">手動快照
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo timeshift --create --comments &lt;span class="s2">&amp;#34;第一次備份&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>&amp;ndash;create：建立快照&lt;/li>
+&lt;li>&amp;ndash;comments：備註資訊&lt;/li>
+&lt;li>&amp;ndash;tags D：標記為每日（Daily）快照&lt;/li>
+&lt;/ul>
+&lt;h2 id="快照列表">快照列表
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo timeshift --list
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="還原快照">還原快照
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 選擇列表&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo timeshift --restore
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 直接指定&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo timeshift --restore --snapshot &lt;span class="s1">&amp;#39;快照名稱&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="清理舊快照">清理舊快照
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 單一快照&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo timeshift --delete --snapshot &lt;span class="s1">&amp;#39;快照名稱&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 所有標記為每日的快照&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo timeshift --delete-all --tags D
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="標記">標記
+&lt;/h2>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>類型（Tag）&lt;/th>
+&lt;th>參數代碼&lt;/th>
+&lt;th>建議用途&lt;/th>
+&lt;th>說明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Boot&lt;/td>
+&lt;td>&amp;ndash;tags B&lt;/td>
+&lt;td>每次開機自動備份（不建議過多）&lt;/td>
+&lt;td>系統每開一次機會觸發一次備份&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Hourly&lt;/td>
+&lt;td>&amp;ndash;tags H&lt;/td>
+&lt;td>每小時備份一次&lt;/td>
+&lt;td>適合變動頻繁的開發機&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Daily&lt;/td>
+&lt;td>&amp;ndash;tags D&lt;/td>
+&lt;td>每日備份&lt;/td>
+&lt;td>常見的排程頻率&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Weekly&lt;/td>
+&lt;td>&amp;ndash;tags W&lt;/td>
+&lt;td>每週備份&lt;/td>
+&lt;td>比較節省空間，適合穩定環境&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Monthly&lt;/td>
+&lt;td>&amp;ndash;tags M&lt;/td>
+&lt;td>每月備份&lt;/td>
+&lt;td>保留長期歷史&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Manual&lt;/td>
+&lt;td>&amp;ndash;tags O&lt;/td>
+&lt;td>手動建立&lt;/td>
+&lt;td>自行用指令建立的快照&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h1 id="設定檔">設定檔
+&lt;/h1>&lt;p>Timeshift 的主要設定檔位於 &lt;code>/etc/timeshift/timeshift.json&lt;/code>，儲存了所有與快照類型、排程、保留數量、使用者界面偏好等相關設定。&lt;/p>
+&lt;h2 id="參數說明">參數說明
+&lt;/h2>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>參數&lt;/th>
+&lt;th>類型 / 範例&lt;/th>
+&lt;th>說明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>backup_device_uuid&lt;/td>
+&lt;td>string&lt;/td>
+&lt;td>儲存快照的磁碟分割區 UUID&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>snapshot_device_uuid&lt;/td>
+&lt;td>string&lt;/td>
+&lt;td>與 backup_device_uuid 相同，大多可忽略&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>snapper_type&lt;/td>
+&lt;td>&amp;ldquo;RSYNC&amp;rdquo; 或 &amp;ldquo;BTRFS&amp;rdquo;&lt;/td>
+&lt;td>使用的快照技術&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>do_first_run&lt;/td>
+&lt;td>true / false&lt;/td>
+&lt;td>是否為首次啟動時使用的引導設定&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>schedule_backup&lt;/td>
+&lt;td>true / false&lt;/td>
+&lt;td>啟用排程快照（必須為 true）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>schedule_hourly&lt;/td>
+&lt;td>true / false&lt;/td>
+&lt;td>啟用每小時快照排程&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>schedule_daily&lt;/td>
+&lt;td>true / false&lt;/td>
+&lt;td>啟用每日快照排程&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>schedule_weekly&lt;/td>
+&lt;td>true / false&lt;/td>
+&lt;td>啟用每週快照排程&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>schedule_monthly&lt;/td>
+&lt;td>true / false&lt;/td>
+&lt;td>啟用每月快照排程&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>schedule_boot&lt;/td>
+&lt;td>true / false&lt;/td>
+&lt;td>啟用每次開機後備份&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>count_hourly&lt;/td>
+&lt;td>整數&lt;/td>
+&lt;td>每小時快照保留數量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>count_daily&lt;/td>
+&lt;td>整數&lt;/td>
+&lt;td>每日快照保留數量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>count_weekly&lt;/td>
+&lt;td>整數&lt;/td>
+&lt;td>每週快照保留數量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>count_monthly&lt;/td>
+&lt;td>整數&lt;/td>
+&lt;td>每月快照保留數量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>count_boot&lt;/td>
+&lt;td>整數&lt;/td>
+&lt;td>開機後快照保留數量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>exclude&lt;/td>
+&lt;td>陣列&lt;/td>
+&lt;td>要排除的目錄（不會備份）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>exclude-apps&lt;/td>
+&lt;td>true / false&lt;/td>
+&lt;td>是否排除已安裝的應用程式列表（如 apt 或 flatpak）&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="注意事項">注意事項
+&lt;/h2>&lt;p>修改後請確保語法正確（可用 jq 檢查）：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">jq . /etc/timeshift.json
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>無須手動啟用排程器（如 cron），Timeshift 本身會透過 systemd 排程執行且修改此設定不會立即生效於已建立的快照，僅影響未來行為。&lt;/p></description></item><item><title>自動更新 Ubuntu 並使用 Discord 通知</title><link>https://huihsiang9292.github.io/p/2025/06/17/%E8%87%AA%E5%8B%95%E6%9B%B4%E6%96%B0-ubuntu-%E4%B8%A6%E4%BD%BF%E7%94%A8-discord-%E9%80%9A%E7%9F%A5/</link><pubDate>Tue, 17 Jun 2025 00:00:00 +0000</pubDate><guid>https://huihsiang9292.github.io/p/2025/06/17/%E8%87%AA%E5%8B%95%E6%9B%B4%E6%96%B0-ubuntu-%E4%B8%A6%E4%BD%BF%E7%94%A8-discord-%E9%80%9A%E7%9F%A5/</guid><description>&lt;h1 id="前言">前言
+&lt;/h1>&lt;p>在日常的 Ubuntu Server 維運中，保持套件更新是確保安全與穩定的基本工作。不過，頻繁手動登入更新麻煩又容易遺漏。&lt;/p>
+&lt;p>這篇教學將示範如何使用 Shell 腳本自動執行更新，並將執行結果透過 Discord Webhook 即時推播到你指定的頻道。&lt;/p>
+&lt;h1 id="discord-webhook">Discord Webhook
+&lt;/h1>&lt;ol>
+&lt;li>新增 Discord 伺服器&lt;/li>
+&lt;li>進入伺服器設定，並在左側選單中點選 &lt;code>整合&lt;/code>&lt;/li>
+&lt;li>點選 &lt;code>Webhook&lt;/code> 並新增&lt;/li>
+&lt;li>命名為 &lt;code>auto-update-bot&lt;/code>（自訂名稱）&lt;/li>
+&lt;li>複製產生的 &lt;code>Webhook URL&lt;/code>&lt;/li>
+&lt;li>貼到腳本中的 &lt;code>DISCORD_WEBHOOK_URL&lt;/code> 欄位&lt;/li>
+&lt;/ol>
+&lt;h1 id="shell-腳本">Shell 腳本
+&lt;/h1>&lt;h2 id="概覽">概覽
+&lt;/h2>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>功能&lt;/th>
+&lt;th>說明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>自動更新套件&lt;/td>
+&lt;td>執行 &lt;code>apt update &amp;amp;&amp;amp; upgrade&lt;/code> 並清除緩存&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>日誌記錄&lt;/td>
+&lt;td>輸出更新紀錄到 &lt;code>/var/log/auto-update.log&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Discord 通知&lt;/td>
+&lt;td>傳送通知訊息至 Discord 頻道&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>避免重複執行&lt;/td>
+&lt;td>每次只執行一次更新，避免重複更新&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>判斷是否需要重啟&lt;/td>
+&lt;td>根據 &lt;code>/var/run/reboot-required&lt;/code> 自動通知&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="內容">內容
+&lt;/h2>&lt;p>路徑：&lt;code>/usr/local/bin/auto-update.sh&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># === 設定 ===&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">LOG_FILE&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;/var/log/auto-update.log&amp;#34;&lt;/span> &lt;span class="c1"># 記錄更新過程的日誌檔案路徑&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">DISCORD_WEBHOOK_URL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span> &lt;span class="c1"># Discord Webhook URL，請替換成你自己的&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># === Discord 通知函式 ===&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 這個函式會將訊息發送到指定的 Discord webhook&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">function&lt;/span> notify_discord&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">local&lt;/span> &lt;span class="nv">message&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="c1"># 取得要發送的訊息內容&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> curl -s -H &lt;span class="s2">&amp;#34;Content-Type: application/json&amp;#34;&lt;/span> &lt;span class="se">\ &lt;/span> &lt;span class="c1"># 設定 HTTP 標頭為 JSON&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -X POST &lt;span class="se">\ &lt;/span> &lt;span class="c1"># 使用 POST 方法&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -d &lt;span class="s2">&amp;#34;{\&amp;#34;content\&amp;#34;: \&amp;#34;&lt;/span>&lt;span class="nv">$message&lt;/span>&lt;span class="s2">\&amp;#34;}&amp;#34;&lt;/span> &lt;span class="se">\ &lt;/span> &lt;span class="c1"># 將訊息內容包裝成 JSON 格式&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$DISCORD_WEBHOOK_URL&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &amp;gt; /dev/null &lt;span class="c1"># 發送到 Discord，並忽略輸出&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># === 開始更新 ===&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 在日誌中記錄開始訊息，並通知 Discord&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;[&lt;/span>&lt;span class="k">$(&lt;/span>date&lt;span class="k">)&lt;/span>&lt;span class="s2">] 🚀 開始自動更新&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> tee -a &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$LOG_FILE&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">notify_discord &lt;span class="s2">&amp;#34;🚀 [&lt;/span>&lt;span class="k">$(&lt;/span>hostname&lt;span class="k">)&lt;/span>&lt;span class="s2">] 開始自動更新 Ubuntu 套件&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># === 套件更新流程 ===&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 執行 apt 指令進行系統套件更新，並將所有輸出寫入日誌檔案&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> apt update &lt;span class="c1"># 取得最新的套件清單&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> apt upgrade -y &lt;span class="c1"># 自動安裝所有可升級的套件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> apt autoremove -y &lt;span class="c1"># 移除不再需要的套件&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> apt clean &lt;span class="c1"># 清除下載的套件快取&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span> &amp;gt;&amp;gt; &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$LOG_FILE&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> 2&amp;gt;&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="c1"># 將標準輸出與錯誤輸出都寫入日誌&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># === 是否需要重啟 ===&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 檢查 /var/run/reboot-required 檔案是否存在，判斷系統是否需要重啟&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="o">[&lt;/span> -f /var/run/reboot-required &lt;span class="o">]&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">then&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;[&lt;/span>&lt;span class="k">$(&lt;/span>date&lt;span class="k">)&lt;/span>&lt;span class="s2">] ⚠️ 系統需要重新啟動&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> tee -a &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$LOG_FILE&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> notify_discord &lt;span class="s2">&amp;#34;⚠️ [&lt;/span>&lt;span class="k">$(&lt;/span>hostname&lt;span class="k">)&lt;/span>&lt;span class="s2">] 更新完成，但系統需要重開機&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;[&lt;/span>&lt;span class="k">$(&lt;/span>date&lt;span class="k">)&lt;/span>&lt;span class="s2">] ✅ 不需重啟。&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> tee -a &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$LOG_FILE&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> notify_discord &lt;span class="s2">&amp;#34;✅ [&lt;/span>&lt;span class="k">$(&lt;/span>hostname&lt;span class="k">)&lt;/span>&lt;span class="s2">] 更新完成，不需重啟&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">fi&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># === 完成通知 ===&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;[&lt;/span>&lt;span class="k">$(&lt;/span>date&lt;span class="k">)&lt;/span>&lt;span class="s2">] 🏁 更新完成&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> tee -a &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$LOG_FILE&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">notify_discord &lt;span class="s2">&amp;#34;🏁 [&lt;/span>&lt;span class="k">$(&lt;/span>hostname&lt;span class="k">)&lt;/span>&lt;span class="s2">] 自動更新流程完成&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="給予執行權限">給予執行權限
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo chmod +x /usr/local/bin/auto-update.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="開機自動執行">開機自動執行
+&lt;/h2>&lt;p>建立 service：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemd Service：/etc/systemd/system/auto-update.service
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>內容如下:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>Unit&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Description&lt;/span>&lt;span class="o">=&lt;/span>Ubuntu 開機自動更新 &lt;span class="c1"># 服務描述，顯示於 systemctl status&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">After&lt;/span>&lt;span class="o">=&lt;/span>network-online.target &lt;span class="c1"># 等待網路連線完成後再啟動本服務&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Wants&lt;/span>&lt;span class="o">=&lt;/span>network-online.target &lt;span class="c1"># 本服務需要網路連線&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>Service&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Type&lt;/span>&lt;span class="o">=&lt;/span>oneshot &lt;span class="c1"># 只執行一次，執行完畢即結束&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ExecStartPre&lt;/span>&lt;span class="o">=&lt;/span>/bin/sleep &lt;span class="m">30&lt;/span> &lt;span class="c1"># 在執行主程式前先暫停 30 秒，確保網路穩定&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>/usr/local/bin/auto-update.sh &lt;span class="c1"># 執行自動更新腳本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">StandardOutput&lt;/span>&lt;span class="o">=&lt;/span>journal &lt;span class="c1"># 將標準輸出寫入 systemd journal&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">StandardError&lt;/span>&lt;span class="o">=&lt;/span>journal &lt;span class="c1"># 將錯誤輸出寫入 systemd journal&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">RemainAfterExit&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span> &lt;span class="c1"># 執行完畢後仍保持為 active 狀態&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>Install&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">WantedBy&lt;/span>&lt;span class="o">=&lt;/span>multi-user.target &lt;span class="c1"># 在多使用者模式下啟動（一般開機流程會進入此&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>啟用服務&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 重新載入 systemd 的服務設定檔，讓 systemd 讀取最新的 .service 檔案&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo systemctl daemon-reload
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 啟用 auto-update.service，讓它在每次開機時自動執行&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo systemctl &lt;span class="nb">enable&lt;/span> auto-update.service
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>下次開機就會自動執行一次。你也可以手動觸發：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl start auto-update.service
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>Arch Linux 安裝教學</title><link>https://huihsiang9292.github.io/p/2024/10/11/arch-linux-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8/</link><pubDate>Fri, 11 Oct 2024 00:00:00 +0000</pubDate><guid>https://huihsiang9292.github.io/p/2024/10/11/arch-linux-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8/</guid><description>&lt;h1 id="系統">系統
+&lt;/h1>&lt;h2 id="arch-linux">Arch Linux
+&lt;/h2>&lt;p>驗證啟動模式是否為 UEFI，若命令結果為 64、32，表示是以 64、32 位元的 UEFI 啟動&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cat /sys/firmware/efi/fw_platform_size
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>確認是否有網路&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ping google.com
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>輔助安裝腳本&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># archinstall --config &amp;lt;url&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">archinstall
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="軟體清單">軟體清單
+&lt;/h2>&lt;ul>
+&lt;li>openssh&lt;/li>
+&lt;li>tailscale&lt;/li>
+&lt;li>greetd-tuigreet&lt;/li>
+&lt;li>xorg-server&lt;/li>
+&lt;li>xorg-xinit&lt;/li>
+&lt;li>xorg-xrandr&lt;/li>
+&lt;li>i3-wm&lt;/li>
+&lt;li>rofi&lt;/li>
+&lt;li>ranger&lt;/li>
+&lt;li>polybar&lt;/li>
+&lt;li>picom&lt;/li>
+&lt;li>feh&lt;/li>
+&lt;li>polkit-kde-agent&lt;/li>
+&lt;li>wezterm&lt;/li>
+&lt;li>neovim&lt;/li>
+&lt;li>firefox&lt;/li>
+&lt;li>timeshift&lt;/li>
+&lt;li>ttf-cascadia-code&lt;/li>
+&lt;li>adobe-source-han-serif-tw-fonts&lt;/li>
+&lt;/ul>
+&lt;h2 id="軟體配置">軟體配置
+&lt;/h2>&lt;h3 id="openssh">openssh
+&lt;/h3>&lt;p>開機自啟、啟動 ssh server&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl &lt;span class="nb">enable&lt;/span> sshd
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo systemctl start sshd
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="tailscale">tailscale
+&lt;/h3>&lt;p>開機自啟 tailscale、連結到帳戶&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl &lt;span class="nb">enable&lt;/span> --now tailscaled
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo tailscale up
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tailscale ip -4
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="greetd-tuigreet">greetd-tuigreet
+&lt;/h3>&lt;p>開啟配置文件、自啟 i3-wm、邊框顏色為亮黃色、輸入顏色為亮紅色、重啟&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo nvim /etc/greetd/config.toml
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>default_session&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">command&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;tuigreet --cmd startx --remember --theme &amp;#39;border=LightYellow;input=LightRed&amp;#39;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo systemctl restart greetd
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="xorg-xinit">xorg-xinit
+&lt;/h3>&lt;p>複製預設配置文件並開啟&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo cp /etc/X11/xinit/xinitrc ~/.xinitrc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo nvim ~/.xinitrc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>刪除底部預設自啟項並新增 i3-wm&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">exec&lt;/span> i3
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>啟動 X11、查找螢幕名稱&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">startx
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">xrandr &lt;span class="p">|&lt;/span> grep connected
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="rofi">rofi
+&lt;/h3>&lt;p>開啟 i3-wm 配置文件、修改&lt;code>dmenu&lt;/code>為&lt;code>rofi -show drun&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nvim ~/.config/i3/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bindsym &lt;span class="nv">$mod&lt;/span>+d &lt;span class="nb">exec&lt;/span> --no-startup-id rofi -show drun
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="ranger">ranger
+&lt;/h3>&lt;p>複製預設配置文件&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ranger --copy-config&lt;span class="o">=&lt;/span>all
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="polybar">polybar
+&lt;/h3>&lt;p>複製預設配置文件&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir ~/.config/polybar
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo cp /etc/polybar/config.ini ~/.config/polybar/config.ini
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>修改&lt;code>fallback-value&lt;/code>為查找到的螢幕名稱&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo nvim ~/.config/polybar/config.ini
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>bar/example&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">monitor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="si">${&lt;/span>&lt;span class="nv">env&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">MONITOR&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nv">fallback&lt;/span>&lt;span class="p">-value&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>建立啟動文件並給予執行權限，修改&lt;code>bar&lt;/code>為&lt;code>[bar/example]&lt;/code>中的名稱&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">touch ~/.config/polybar/launch.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nvim ~/.config/polybar/launch.sh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#!/usr/bin/env bash&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Terminate already running bar instances&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># If all your bars have ipc enabled, you can use&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">polybar-msg cmd quit
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Otherwise you can use the nuclear option:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># killall -q polybar&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Launch bar1 and bar2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;---&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> tee -a /tmp/polybar.log
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">polybar bar 2&amp;gt;&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="p">|&lt;/span> tee -a /tmp/polybar.log &lt;span class="p">&amp;amp;&lt;/span> &lt;span class="nb">disown&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Bars launched...&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod +x ~/.config/polybar/launch.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>開啟 i3-wm 配置文件、刪除預設 bar 、新增自啟 polybar&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nvim ~/.config/i3/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bar &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> i3bar_command i3bar
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">exec_always --no-startup-id ~/.config/polybar/launch.sh &lt;span class="p">&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="picom">picom
+&lt;/h3>&lt;p>複製預設配置文件&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir ~/.config/picom
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cp /etc/xdg/picom.conf ~/.config/picom/picom.conf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>開啟 i3-wm 配置文件、新增自啟 picom&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nvim ~/.config/i3/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf &lt;span class="p">&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="feh">feh
+&lt;/h3>&lt;p>設定桌布&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">feh --bg-fill /path/to/image.file
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>設定隨機桌布，資料夾內只能有圖檔&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">feh --bg-fill --randomize /path/to/image/folder/*
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>開啟 i3-wm 配置文件、新增自啟 feh&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nvim ~/.config/i3/config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">exec_always ~/.fehbg &lt;span class="p">&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="美化">美化
+&lt;/h2>&lt;h3 id="i3-wm">i3-WM
+&lt;/h3>&lt;p>配置文件&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>Vim 基本操作指令</title><link>https://huihsiang9292.github.io/p/2024/10/11/vim-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4/</link><pubDate>Fri, 11 Oct 2024 00:00:00 +0000</pubDate><guid>https://huihsiang9292.github.io/p/2024/10/11/vim-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4/</guid><description>&lt;h1 id="移動">移動
+&lt;/h1>&lt;ul>
+&lt;li>&lt;code>gg&lt;/code> 檔案頂部&lt;/li>
+&lt;li>&lt;code>G&lt;/code> 檔案底部&lt;/li>
+&lt;li>&lt;code>0&lt;/code> 行首&lt;/li>
+&lt;li>&lt;code>$&lt;/code> 行尾&lt;/li>
+&lt;/ul>
+&lt;h1 id="複製">複製
+&lt;/h1>&lt;ul>
+&lt;li>&lt;code>yy&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h1 id="貼上">貼上
+&lt;/h1>&lt;ul>
+&lt;li>&lt;code>p&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h1 id="多行編輯">多行編輯
+&lt;/h1>&lt;ul>
+&lt;li>&lt;code>ctrl + v&lt;/code> &amp;gt; 選取範圍 &amp;gt; &lt;code>shift + i&lt;/code> &amp;gt; 編輯 &amp;gt; &lt;code>esc&lt;/code>&lt;/li>
+&lt;/ul></description></item></channel></rss>

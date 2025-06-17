@@ -1,0 +1,150 @@
+<!doctype html><html lang=zh-tw dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content='前言 在日常的 Ubuntu Server 維運中，保持套件更新是確保安全與穩定的基本工作。不過，頻繁手動登入更新麻煩又容易遺漏。\n這篇教學將示範如何使用 Shell 腳本自動執行更新，並將執行結果透過 Discord Webhook 即時推播到你指定的頻道。\nDiscord Webhook 新增 Discord 伺服器 進入伺服器設定，並在左側選單中點選 整合 點選 Webhook 並新增 命名為 auto-update-bot（自訂名稱） 複製產生的 Webhook URL 貼到腳本中的 DISCORD_WEBHOOK_URL 欄位 Shell 腳本 概覽 功能 說明 自動更新套件 執行 apt update && upgrade 並清除緩存 日誌記錄 輸出更新紀錄到 /var/log/auto-update.log Discord 通知 傳送通知訊息至 Discord 頻道 避免重複執行 每次只執行一次更新，避免重複更新 判斷是否需要重啟 根據 /var/run/reboot-required 自動通知 內容 路徑：/usr/local/bin/auto-update.sh\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 #!/bin/bash # === 設定 === LOG_FILE="/var/log/auto-update.log" # 記錄更新過程的日誌檔案路徑 DISCORD_WEBHOOK_URL="" # Discord Webhook URL，請替換成你自己的 # === Discord 通知函式 === # 這個函式會將訊息發送到指定的 Discord webhook function notify_discord() { local message="$1" # 取得要發送的訊息內容 curl -s -H "Content-Type: application/json" \\ # 設定 HTTP 標頭為 JSON -X POST \\ # 使用 POST 方法 -d "{\\"content\\": \\"$message\\"}" \\ # 將訊息內容包裝成 JSON 格式 "$DISCORD_WEBHOOK_URL" > /dev/null # 發送到 Discord，並忽略輸出 } # === 開始更新 === # 在日誌中記錄開始訊息，並通知 Discord echo "[$(date)] 🚀 開始自動更新" | tee -a "$LOG_FILE" notify_discord "🚀 [$(hostname)] 開始自動更新 Ubuntu 套件" # === 套件更新流程 === # 執行 apt 指令進行系統套件更新，並將所有輸出寫入日誌檔案 { apt update # 取得最新的套件清單 apt upgrade -y # 自動安裝所有可升級的套件 apt autoremove -y # 移除不再需要的套件 apt clean # 清除下載的套件快取 } >> "$LOG_FILE" 2>&amp;1 # 將標準輸出與錯誤輸出都寫入日誌 # === 是否需要重啟 === # 檢查 /var/run/reboot-required 檔案是否存在，判斷系統是否需要重啟 if [ -f /var/run/reboot-required ]; then echo "[$(date)] ⚠️ 系統需要重新啟動" | tee -a "$LOG_FILE" notify_discord "⚠️ [$(hostname)] 更新完成，但系統需要重開機" else echo "[$(date)] ✅ 不需重啟。" | tee -a "$LOG_FILE" notify_discord "✅ [$(hostname)] 更新完成，不需重啟" fi # === 完成通知 === echo "[$(date)] 🏁 更新完成" | tee -a "$LOG_FILE" notify_discord "🏁 [$(hostname)] 自動更新流程完成" 給予執行權限 1 sudo chmod +x /usr/local/bin/auto-update.sh 開機自動執行 建立 service：\n'><title>自動更新 Ubuntu 並使用 Discord 通知</title><link rel=canonical href=https://huihsiang9292.github.io/p/2025/06/17/%E8%87%AA%E5%8B%95%E6%9B%B4%E6%96%B0-ubuntu-%E4%B8%A6%E4%BD%BF%E7%94%A8-discord-%E9%80%9A%E7%9F%A5/><link rel=stylesheet href=/scss/style.min.7d2c995d11bd444f77ad6169ee62a7b57103081463ffe1418cad26dfe13126fb.css><meta property='og:title' content="自動更新 Ubuntu 並使用 Discord 通知"><meta property='og:description' content='前言 在日常的 Ubuntu Server 維運中，保持套件更新是確保安全與穩定的基本工作。不過，頻繁手動登入更新麻煩又容易遺漏。\n這篇教學將示範如何使用 Shell 腳本自動執行更新，並將執行結果透過 Discord Webhook 即時推播到你指定的頻道。\nDiscord Webhook 新增 Discord 伺服器 進入伺服器設定，並在左側選單中點選 整合 點選 Webhook 並新增 命名為 auto-update-bot（自訂名稱） 複製產生的 Webhook URL 貼到腳本中的 DISCORD_WEBHOOK_URL 欄位 Shell 腳本 概覽 功能 說明 自動更新套件 執行 apt update && upgrade 並清除緩存 日誌記錄 輸出更新紀錄到 /var/log/auto-update.log Discord 通知 傳送通知訊息至 Discord 頻道 避免重複執行 每次只執行一次更新，避免重複更新 判斷是否需要重啟 根據 /var/run/reboot-required 自動通知 內容 路徑：/usr/local/bin/auto-update.sh\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 #!/bin/bash # === 設定 === LOG_FILE="/var/log/auto-update.log" # 記錄更新過程的日誌檔案路徑 DISCORD_WEBHOOK_URL="" # Discord Webhook URL，請替換成你自己的 # === Discord 通知函式 === # 這個函式會將訊息發送到指定的 Discord webhook function notify_discord() { local message="$1" # 取得要發送的訊息內容 curl -s -H "Content-Type: application/json" \\ # 設定 HTTP 標頭為 JSON -X POST \\ # 使用 POST 方法 -d "{\\"content\\": \\"$message\\"}" \\ # 將訊息內容包裝成 JSON 格式 "$DISCORD_WEBHOOK_URL" > /dev/null # 發送到 Discord，並忽略輸出 } # === 開始更新 === # 在日誌中記錄開始訊息，並通知 Discord echo "[$(date)] 🚀 開始自動更新" | tee -a "$LOG_FILE" notify_discord "🚀 [$(hostname)] 開始自動更新 Ubuntu 套件" # === 套件更新流程 === # 執行 apt 指令進行系統套件更新，並將所有輸出寫入日誌檔案 { apt update # 取得最新的套件清單 apt upgrade -y # 自動安裝所有可升級的套件 apt autoremove -y # 移除不再需要的套件 apt clean # 清除下載的套件快取 } >> "$LOG_FILE" 2>&amp;1 # 將標準輸出與錯誤輸出都寫入日誌 # === 是否需要重啟 === # 檢查 /var/run/reboot-required 檔案是否存在，判斷系統是否需要重啟 if [ -f /var/run/reboot-required ]; then echo "[$(date)] ⚠️ 系統需要重新啟動" | tee -a "$LOG_FILE" notify_discord "⚠️ [$(hostname)] 更新完成，但系統需要重開機" else echo "[$(date)] ✅ 不需重啟。" | tee -a "$LOG_FILE" notify_discord "✅ [$(hostname)] 更新完成，不需重啟" fi # === 完成通知 === echo "[$(date)] 🏁 更新完成" | tee -a "$LOG_FILE" notify_discord "🏁 [$(hostname)] 自動更新流程完成" 給予執行權限 1 sudo chmod +x /usr/local/bin/auto-update.sh 開機自動執行 建立 service：\n'><meta property='og:url' content='https://huihsiang9292.github.io/p/2025/06/17/%E8%87%AA%E5%8B%95%E6%9B%B4%E6%96%B0-ubuntu-%E4%B8%A6%E4%BD%BF%E7%94%A8-discord-%E9%80%9A%E7%9F%A5/'><meta property='og:site_name' content><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:published_time' content='2025-06-17T00:00:00+00:00'><meta property='article:modified_time' content='2025-06-17T00:00:00+00:00'><meta name=twitter:title content="自動更新 Ubuntu 並使用 Discord 通知"><meta name=twitter:description content='前言 在日常的 Ubuntu Server 維運中，保持套件更新是確保安全與穩定的基本工作。不過，頻繁手動登入更新麻煩又容易遺漏。\n這篇教學將示範如何使用 Shell 腳本自動執行更新，並將執行結果透過 Discord Webhook 即時推播到你指定的頻道。\nDiscord Webhook 新增 Discord 伺服器 進入伺服器設定，並在左側選單中點選 整合 點選 Webhook 並新增 命名為 auto-update-bot（自訂名稱） 複製產生的 Webhook URL 貼到腳本中的 DISCORD_WEBHOOK_URL 欄位 Shell 腳本 概覽 功能 說明 自動更新套件 執行 apt update && upgrade 並清除緩存 日誌記錄 輸出更新紀錄到 /var/log/auto-update.log Discord 通知 傳送通知訊息至 Discord 頻道 避免重複執行 每次只執行一次更新，避免重複更新 判斷是否需要重啟 根據 /var/run/reboot-required 自動通知 內容 路徑：/usr/local/bin/auto-update.sh\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 #!/bin/bash # === 設定 === LOG_FILE="/var/log/auto-update.log" # 記錄更新過程的日誌檔案路徑 DISCORD_WEBHOOK_URL="" # Discord Webhook URL，請替換成你自己的 # === Discord 通知函式 === # 這個函式會將訊息發送到指定的 Discord webhook function notify_discord() { local message="$1" # 取得要發送的訊息內容 curl -s -H "Content-Type: application/json" \\ # 設定 HTTP 標頭為 JSON -X POST \\ # 使用 POST 方法 -d "{\\"content\\": \\"$message\\"}" \\ # 將訊息內容包裝成 JSON 格式 "$DISCORD_WEBHOOK_URL" > /dev/null # 發送到 Discord，並忽略輸出 } # === 開始更新 === # 在日誌中記錄開始訊息，並通知 Discord echo "[$(date)] 🚀 開始自動更新" | tee -a "$LOG_FILE" notify_discord "🚀 [$(hostname)] 開始自動更新 Ubuntu 套件" # === 套件更新流程 === # 執行 apt 指令進行系統套件更新，並將所有輸出寫入日誌檔案 { apt update # 取得最新的套件清單 apt upgrade -y # 自動安裝所有可升級的套件 apt autoremove -y # 移除不再需要的套件 apt clean # 清除下載的套件快取 } >> "$LOG_FILE" 2>&amp;1 # 將標準輸出與錯誤輸出都寫入日誌 # === 是否需要重啟 === # 檢查 /var/run/reboot-required 檔案是否存在，判斷系統是否需要重啟 if [ -f /var/run/reboot-required ]; then echo "[$(date)] ⚠️ 系統需要重新啟動" | tee -a "$LOG_FILE" notify_discord "⚠️ [$(hostname)] 更新完成，但系統需要重開機" else echo "[$(date)] ✅ 不需重啟。" | tee -a "$LOG_FILE" notify_discord "✅ [$(hostname)] 更新完成，不需重啟" fi # === 完成通知 === echo "[$(date)] 🏁 更新完成" | tee -a "$LOG_FILE" notify_discord "🏁 [$(hostname)] 自動更新流程完成" 給予執行權限 1 sudo chmod +x /usr/local/bin/auto-update.sh 開機自動執行 建立 service：\n'><link rel="shortcut icon" href=/favicon.png></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"dark")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/></a></h1><h2 class=site-description>等在原地是不會有好事發生的</h2></div></header><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">Table of contents</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#前言>前言</a></li><li><a href=#discord-webhook>Discord Webhook</a></li><li><a href=#shell-腳本>Shell 腳本</a><ol><li><a href=#概覽>概覽</a></li><li><a href=#內容>內容</a></li><li><a href=#給予執行權限>給予執行權限</a></li><li><a href=#開機自動執行>開機自動執行</a></li></ol></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/categories/linux/>Linux
+</a><a href=/categories/ubuntu-server/>Ubuntu Server
+</a><a href=/categories/discord/>Discord</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/2025/06/17/%E8%87%AA%E5%8B%95%E6%9B%B4%E6%96%B0-ubuntu-%E4%B8%A6%E4%BD%BF%E7%94%A8-discord-%E9%80%9A%E7%9F%A5/>自動更新 Ubuntu 並使用 Discord 通知</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2025, 06, 17</time></div></footer></div></header><section class=article-content><h1 id=前言>前言</h1><p>在日常的 Ubuntu Server 維運中，保持套件更新是確保安全與穩定的基本工作。不過，頻繁手動登入更新麻煩又容易遺漏。</p><p>這篇教學將示範如何使用 Shell 腳本自動執行更新，並將執行結果透過 Discord Webhook 即時推播到你指定的頻道。</p><h1 id=discord-webhook>Discord Webhook</h1><ol><li>新增 Discord 伺服器</li><li>進入伺服器設定，並在左側選單中點選 <code>整合</code></li><li>點選 <code>Webhook</code> 並新增</li><li>命名為 <code>auto-update-bot</code>（自訂名稱）</li><li>複製產生的 <code>Webhook URL</code></li><li>貼到腳本中的 <code>DISCORD_WEBHOOK_URL</code> 欄位</li></ol><h1 id=shell-腳本>Shell 腳本</h1><h2 id=概覽>概覽</h2><div class=table-wrapper><table><thead><tr><th>功能</th><th>說明</th></tr></thead><tbody><tr><td>自動更新套件</td><td>執行 <code>apt update && upgrade</code> 並清除緩存</td></tr><tr><td>日誌記錄</td><td>輸出更新紀錄到 <code>/var/log/auto-update.log</code></td></tr><tr><td>Discord 通知</td><td>傳送通知訊息至 Discord 頻道</td></tr><tr><td>避免重複執行</td><td>每次只執行一次更新，避免重複更新</td></tr><tr><td>判斷是否需要重啟</td><td>根據 <code>/var/run/reboot-required</code> 自動通知</td></tr></tbody></table></div><h2 id=內容>內容</h2><p>路徑：<code>/usr/local/bin/auto-update.sh</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=cp>#!/bin/bash
+</span></span></span><span class=line><span class=cl><span class=cp></span>
+</span></span><span class=line><span class=cl><span class=c1># === 設定 ===</span>
+</span></span><span class=line><span class=cl><span class=nv>LOG_FILE</span><span class=o>=</span><span class=s2>&#34;/var/log/auto-update.log&#34;</span>      <span class=c1># 記錄更新過程的日誌檔案路徑</span>
+</span></span><span class=line><span class=cl><span class=nv>DISCORD_WEBHOOK_URL</span><span class=o>=</span><span class=s2>&#34;&#34;</span>  <span class=c1># Discord Webhook URL，請替換成你自己的</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># === Discord 通知函式 ===</span>
+</span></span><span class=line><span class=cl><span class=c1># 這個函式會將訊息發送到指定的 Discord webhook</span>
+</span></span><span class=line><span class=cl><span class=k>function</span> notify_discord<span class=o>()</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=nb>local</span> <span class=nv>message</span><span class=o>=</span><span class=s2>&#34;</span><span class=nv>$1</span><span class=s2>&#34;</span>  <span class=c1># 取得要發送的訊息內容</span>
+</span></span><span class=line><span class=cl>    curl -s -H <span class=s2>&#34;Content-Type: application/json&#34;</span> <span class=se>\ </span> <span class=c1># 設定 HTTP 標頭為 JSON</span>
+</span></span><span class=line><span class=cl>         -X POST <span class=se>\ </span>                                <span class=c1># 使用 POST 方法</span>
+</span></span><span class=line><span class=cl>         -d <span class=s2>&#34;{\&#34;content\&#34;: \&#34;</span><span class=nv>$message</span><span class=s2>\&#34;}&#34;</span> <span class=se>\ </span>       <span class=c1># 將訊息內容包裝成 JSON 格式</span>
+</span></span><span class=line><span class=cl>         <span class=s2>&#34;</span><span class=nv>$DISCORD_WEBHOOK_URL</span><span class=s2>&#34;</span> &gt; /dev/null        <span class=c1># 發送到 Discord，並忽略輸出</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># === 開始更新 ===</span>
+</span></span><span class=line><span class=cl><span class=c1># 在日誌中記錄開始訊息，並通知 Discord</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;[</span><span class=k>$(</span>date<span class=k>)</span><span class=s2>] 🚀 開始自動更新&#34;</span> <span class=p>|</span> tee -a <span class=s2>&#34;</span><span class=nv>$LOG_FILE</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>notify_discord <span class=s2>&#34;🚀 [</span><span class=k>$(</span>hostname<span class=k>)</span><span class=s2>] 開始自動更新 Ubuntu 套件&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># === 套件更新流程 ===</span>
+</span></span><span class=line><span class=cl><span class=c1># 執行 apt 指令進行系統套件更新，並將所有輸出寫入日誌檔案</span>
+</span></span><span class=line><span class=cl><span class=o>{</span>
+</span></span><span class=line><span class=cl>    apt update             <span class=c1># 取得最新的套件清單</span>
+</span></span><span class=line><span class=cl>    apt upgrade -y         <span class=c1># 自動安裝所有可升級的套件</span>
+</span></span><span class=line><span class=cl>    apt autoremove -y      <span class=c1># 移除不再需要的套件</span>
+</span></span><span class=line><span class=cl>    apt clean              <span class=c1># 清除下載的套件快取</span>
+</span></span><span class=line><span class=cl><span class=o>}</span> &gt;&gt; <span class=s2>&#34;</span><span class=nv>$LOG_FILE</span><span class=s2>&#34;</span> 2&gt;<span class=p>&amp;</span><span class=m>1</span>      <span class=c1># 將標準輸出與錯誤輸出都寫入日誌</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># === 是否需要重啟 ===</span>
+</span></span><span class=line><span class=cl><span class=c1># 檢查 /var/run/reboot-required 檔案是否存在，判斷系統是否需要重啟</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -f /var/run/reboot-required <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;[</span><span class=k>$(</span>date<span class=k>)</span><span class=s2>] ⚠️ 系統需要重新啟動&#34;</span> <span class=p>|</span> tee -a <span class=s2>&#34;</span><span class=nv>$LOG_FILE</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    notify_discord <span class=s2>&#34;⚠️ [</span><span class=k>$(</span>hostname<span class=k>)</span><span class=s2>] 更新完成，但系統需要重開機&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;[</span><span class=k>$(</span>date<span class=k>)</span><span class=s2>] ✅ 不需重啟。&#34;</span> <span class=p>|</span> tee -a <span class=s2>&#34;</span><span class=nv>$LOG_FILE</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    notify_discord <span class=s2>&#34;✅ [</span><span class=k>$(</span>hostname<span class=k>)</span><span class=s2>] 更新完成，不需重啟&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># === 完成通知 ===</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;[</span><span class=k>$(</span>date<span class=k>)</span><span class=s2>] 🏁 更新完成&#34;</span> <span class=p>|</span> tee -a <span class=s2>&#34;</span><span class=nv>$LOG_FILE</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>notify_discord <span class=s2>&#34;🏁 [</span><span class=k>$(</span>hostname<span class=k>)</span><span class=s2>] 自動更新流程完成&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=給予執行權限>給予執行權限</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo chmod +x /usr/local/bin/auto-update.sh
+</span></span></code></pre></td></tr></table></div></div><h2 id=開機自動執行>開機自動執行</h2><p>建立 service：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>systemd Service：/etc/systemd/system/auto-update.service
+</span></span></code></pre></td></tr></table></div></div><p>內容如下:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>[</span>Unit<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=nv>Description</span><span class=o>=</span>Ubuntu 開機自動更新               <span class=c1># 服務描述，顯示於 systemctl status</span>
+</span></span><span class=line><span class=cl><span class=nv>After</span><span class=o>=</span>network-online.target                  <span class=c1># 等待網路連線完成後再啟動本服務</span>
+</span></span><span class=line><span class=cl><span class=nv>Wants</span><span class=o>=</span>network-online.target                  <span class=c1># 本服務需要網路連線</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>Service<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=nv>Type</span><span class=o>=</span>oneshot                                <span class=c1># 只執行一次，執行完畢即結束</span>
+</span></span><span class=line><span class=cl><span class=nv>ExecStartPre</span><span class=o>=</span>/bin/sleep <span class=m>30</span>                  <span class=c1># 在執行主程式前先暫停 30 秒，確保網路穩定</span>
+</span></span><span class=line><span class=cl><span class=nv>ExecStart</span><span class=o>=</span>/usr/local/bin/auto-update.sh     <span class=c1># 執行自動更新腳本</span>
+</span></span><span class=line><span class=cl><span class=nv>StandardOutput</span><span class=o>=</span>journal                      <span class=c1># 將標準輸出寫入 systemd journal</span>
+</span></span><span class=line><span class=cl><span class=nv>StandardError</span><span class=o>=</span>journal                       <span class=c1># 將錯誤輸出寫入 systemd journal</span>
+</span></span><span class=line><span class=cl><span class=nv>RemainAfterExit</span><span class=o>=</span><span class=nb>true</span>                        <span class=c1># 執行完畢後仍保持為 active 狀態</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span>Install<span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=nv>WantedBy</span><span class=o>=</span>multi-user.target                  <span class=c1># 在多使用者模式下啟動（一般開機流程會進入此</span>
+</span></span></code></pre></td></tr></table></div></div><p>啟用服務</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 重新載入 systemd 的服務設定檔，讓 systemd 讀取最新的 .service 檔案</span>
+</span></span><span class=line><span class=cl>sudo systemctl daemon-reload
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 啟用 auto-update.service，讓它在每次開機時自動執行</span>
+</span></span><span class=line><span class=cl>sudo systemctl <span class=nb>enable</span> auto-update.service
+</span></span></code></pre></td></tr></table></div></div><p>下次開機就會自動執行一次。你也可以手動觸發：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo systemctl start auto-update.service
+</span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css integrity=sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js integrity=sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".main-article");renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>Related content</h2><div class=related-content><div class="flex article-list--tile"><article><a href=/p/2025/06/17/timeshift-%E6%95%99%E5%AD%B8/><div class=article-details><h2 class=article-title>Timeshift 教學</h2></div></a></article><article><a href=/p/2024/10/11/arch-linux-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8/><div class=article-details><h2 class=article-title>Arch Linux 安裝教學</h2></div></a></article><article><a href=/p/2024/10/11/vim-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4/><div class=article-details><h2 class=article-title>Vim 基本操作指令</h2></div></a></article></div></div></aside><footer class=site-footer><section class=copyright>&copy;
+2024 -
+2025</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
